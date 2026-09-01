@@ -61,7 +61,23 @@ export const dummyRequests = [
     deliveryAddress: '32 Kiambu Road, Nairobi 00600',
     patientName: 'Grace Wambui',
     patientId: 3
-  }
+  },
+    {
+    id: 5,
+    requestNumber: 'REQ-1050',
+    deviceType: 'Prosthetic Limb',
+    reason: 'New Device',
+    status: 'Approved',  // ← This one is approved, needs measurements
+    submittedDate: '2025-04-15',
+    notes: 'Lost left leg below knee in accident. Active lifestyle.',
+    careCenter: 'Metropolitan Rehab Center',
+    careCenterLocation: 'Nairobi',
+    careCenterPhone: '+254 20 123 4567',
+    deliveryAddress: '14 Maple Avenue, Apt 2B, Nairobi 00100',
+    patientName: 'Sarah Johnson',
+    patientId: 1,
+    measurements: null  // No measurements yet
+    }
 ];
 
 // Current logged in user (patient view)
