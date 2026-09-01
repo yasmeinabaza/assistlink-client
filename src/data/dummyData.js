@@ -213,3 +213,122 @@ export const dummyEngineerCases = [
     deliveredDate: '2025-04-20'
   }
 ];
+
+// Current logged in admin
+export const dummyAdmin = {
+  id: 1,
+  name: 'Admin User',
+  email: 'admin@assistlink.com',
+  role: 'admin',
+  phone: '+254 700 000 000'
+};
+
+// All users in the system
+export const dummyUsers = [
+  {
+    id: 1,
+    name: 'Sarah Johnson',
+    email: 'sarah.johnson@email.com',
+    phone: '+254 712 345 678',
+    role: 'patient',
+    status: 'active',
+    registeredDate: '2025-01-10',
+    careCenter: 'Metropolitan Rehab Center'
+  },
+  {
+    id: 2,
+    name: 'Michael Tran',
+    email: 'm.tran@email.com',
+    phone: '+254 723 456 789',
+    role: 'patient',
+    status: 'active',
+    registeredDate: '2025-04-01',
+    careCenter: 'Metropolitan Rehab Center'
+  },
+  {
+    id: 3,
+    name: 'Grace Wambui',
+    email: 'g.wambui@email.com',
+    phone: '+254 734 567 890',
+    role: 'patient',
+    status: 'active',
+    registeredDate: '2025-03-15',
+    careCenter: 'Metropolitan Rehab Center'
+  },
+  {
+    id: 4,
+    name: 'Dr. Amara Osei',
+    email: 'amara.osei@assistlink.com',
+    phone: '+254 745 678 901',
+    role: 'care-center',
+    status: 'active',
+    registeredDate: '2024-12-01',
+    careCenter: 'Metropolitan Rehab Center'
+  },
+  {
+    id: 5,
+    name: 'John Kamau',
+    email: 'john.kamau@assistlink.com',
+    phone: '+254 756 789 012',
+    role: 'engineer',
+    status: 'active',
+    registeredDate: '2024-11-15',
+    specialization: 'Prosthetics'
+  },
+  {
+    id: 6,
+    name: 'Mary Akinyi',
+    email: 'mary.akinyi@assistlink.com',
+    phone: '+254 767 890 123',
+    role: 'engineer',
+    status: 'active',
+    registeredDate: '2024-10-20',
+    specialization: 'Orthotics'
+  },
+  {
+    id: 7,
+    name: 'Peter Ochieng',
+    email: 'peter.ochieng@assistlink.com',
+    phone: '+254 778 901 234',
+    role: 'engineer',
+    status: 'inactive',
+    registeredDate: '2024-09-01',
+    specialization: 'General'
+  }
+];
+
+// Care centers for admin management
+export const dummyCareCenters = [
+  {
+    id: 1,
+    name: 'Metropolitan Rehab Center',
+    location: 'Nairobi',
+    phone: '+254 20 123 4567',
+    patients: 3,
+    staff: 2
+  },
+  {
+    id: 2,
+    name: 'City Orthopedic Clinic',
+    location: 'Nairobi',
+    phone: '+254 20 234 5678',
+    patients: 0,
+    staff: 0
+  },
+  {
+    id: 3,
+    name: 'National Prosthetics Institute',
+    location: 'Mombasa',
+    phone: '+254 41 345 6789',
+    patients: 0,
+    staff: 0
+  },
+  {
+    id: 4,
+    name: "St. Luke's Rehabilitation",
+    location: 'Kisumu',
+    phone: '+254 57 456 7890',
+    patients: 0,
+    staff: 0
+  }
+];

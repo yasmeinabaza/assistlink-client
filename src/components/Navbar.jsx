@@ -11,6 +11,7 @@ function Navbar() {
           <Link className="btn btn-primary me-2" to="/register">Register</Link>
           <Link className="btn btn-outline-info" to="/care-center">Care Center</Link>
           <Link className="btn btn-outline-warning" to="/engineer">Engineer</Link>
+          <Link className="btn btn-outline-danger" to="/admin">Admin</Link>
         </div>
       </div>
     </nav>

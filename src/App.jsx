@@ -21,6 +21,8 @@ import EngineerCase from './pages/engineer/EngineerCase';
 
 //Admin pages
 import AdminDashboard from './pages/admin/AdminDashboard';
+import UserManagement from './pages/admin/UserManagement';
+
 
 function App() {
   return (
@@ -47,6 +49,8 @@ function App() {
 
         {/* Admin */}
         <Route path="/admin" element={<AdminDashboard />} />
+        <Route path="/admin/users" element={<UserManagement />} />
+
       </Routes>
     </BrowserRouter>
   );
