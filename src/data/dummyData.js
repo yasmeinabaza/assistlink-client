@@ -139,3 +139,77 @@ export const dummyEngineers = [
   { id: 2, name: 'Mary Akinyi', specialization: 'Orthotics' },
   { id: 3, name: 'Peter Ochieng', specialization: 'General' }
 ];
+
+// Current logged in engineer
+export const dummyEngineer = {
+  id: 1,
+  name: 'John Kamau',
+  specialization: 'Prosthetics',
+  email: 'john.kamau@assistlink.com',
+  phone: '+254 712 345 678'
+};
+
+// Engineer cases (requests assigned to engineers)
+export const dummyEngineerCases = [
+  {
+    id: 1,
+    requestNumber: 'REQ-1042',
+    deviceType: 'Prosthetic Limb',
+    status: 'In Progress',
+    submittedDate: '2025-03-12',
+    patientName: 'Sarah Johnson',
+    patientId: 1,
+    careCenter: 'Metropolitan Rehab Center',
+    notes: 'Lost right leg below knee in December 2024. Active lifestyle, prefer lightweight device.',
+    measurements: {
+      height: 165,
+      weight: 72,
+      limbLength: 45,
+      circumference: 38,
+      additionalNotes: 'Patient prefers lightweight materials'
+    },
+    assignedDate: '2025-03-15',
+    engineer: 'John Kamau'
+  },
+  {
+    id: 2,
+    requestNumber: 'REQ-1031',
+    deviceType: 'Orthotic Device',
+    status: 'Approved',  // Not yet started by engineer
+    submittedDate: '2025-04-02',
+    patientName: 'Grace Wambui',
+    patientId: 3,
+    careCenter: 'Metropolitan Rehab Center',
+    notes: 'Foot drop following stroke. Requires AFO for daily mobility.',
+    measurements: {
+      height: 160,
+      weight: 68,
+      limbLength: 40,
+      circumference: 32,
+      additionalNotes: ''
+    },
+    assignedDate: '2025-04-05',
+    engineer: 'John Kamau'
+  },
+  {
+    id: 3,
+    requestNumber: 'REQ-1038',
+    deviceType: 'Prosthetic Limb',
+    status: 'Delivered',
+    submittedDate: '2025-04-10',
+    patientName: 'Michael Tran',
+    patientId: 2,
+    careCenter: 'Metropolitan Rehab Center',
+    notes: 'Congenital limb difference. Right-hand dominant. Functional grip and ease of attachment are priorities.',
+    measurements: {
+      height: 175,
+      weight: 80,
+      limbLength: 50,
+      circumference: 42,
+      additionalNotes: 'Right arm, below elbow'
+    },
+    assignedDate: '2025-04-12',
+    engineer: 'John Kamau',
+    deliveredDate: '2025-04-20'
+  }
+];

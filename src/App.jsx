@@ -17,6 +17,7 @@ import ReviewRequest from './pages/careCenter/ReviewRequest';
 
 // Engineer pages
 import EngineerDashboard from './pages/engineer/EngineerDashboard';
+import EngineerCase from './pages/engineer/EngineerCase';
 
 //Admin pages
 import AdminDashboard from './pages/admin/AdminDashboard';
@@ -42,6 +43,7 @@ function App() {
 
         {/* Engineer */}
         <Route path="/engineer" element={<EngineerDashboard />} />
+        <Route path="/engineer/case/:id" element={<EngineerCase />} />
 
         {/* Admin */}
         <Route path="/admin" element={<AdminDashboard />} />
