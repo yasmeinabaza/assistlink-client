@@ -11,9 +11,14 @@ import PatientDashboard from './pages/patient/PatientDashboard';
 import NewRequest from './pages/patient/NewRequest';
 import RequestDetails from './pages/patient/RequestDetails';
 
-// Other pages (placeholder)
+// Care Center pages
 import CareCenterDashboard from './pages/careCenter/CareCenterDashboard';
+import ReviewRequest from './pages/careCenter/ReviewRequest';  
+
+// Engineer pages
 import EngineerDashboard from './pages/engineer/EngineerDashboard';
+
+//Admin pages
 import AdminDashboard from './pages/admin/AdminDashboard';
 
 function App() {
@@ -33,6 +38,7 @@ function App() {
 
         {/* Care Center */}
         <Route path="/care-center" element={<CareCenterDashboard />} />
+        <Route path="/care-center/request/:id" element={<ReviewRequest />} />
 
         {/* Engineer */}
         <Route path="/engineer" element={<EngineerDashboard />} />
