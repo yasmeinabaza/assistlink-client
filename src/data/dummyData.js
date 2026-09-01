@@ -116,3 +116,10 @@ export const dummyPatients = [
     registeredDate: '2025-03-15'
   }
 ];
+
+// Engineers list for assignment
+export const dummyEngineers = [
+  { id: 1, name: 'John Kamau', specialization: 'Prosthetics' },
+  { id: 2, name: 'Mary Akinyi', specialization: 'Orthotics' },
+  { id: 3, name: 'Peter Ochieng', specialization: 'General' }
+];

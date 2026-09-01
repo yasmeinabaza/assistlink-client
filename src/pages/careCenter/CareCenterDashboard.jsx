@@ -106,22 +106,25 @@ function CareCenterDashboard() {
                     <th>Device Type</th>
                     <th>Date</th>
                     <th>Status</th>
+                    <th>Action</th>
                   </tr>
                 </thead>
+
                 <tbody>
-                  {requests.map(request => (
-                    <tr key={request.id}>
-                      <td>
-                        <Link to={`/care-center/request/${request.id}`}>
-                          {request.requestNumber}
-                        </Link>
-                      </td>
-                      <td>{request.patientName}</td>
-                      <td>{request.deviceType}</td>
-                      <td>{request.submittedDate}</td>
-                      <td><StatusBadge status={request.status} /></td>
-                    </tr>
-                  ))}
+                    {requests.map(request => (
+                        <tr key={request.id}>
+                            <td>{request.requestNumber}</td>
+                            <td>{request.patientName}</td>
+                            <td>{request.deviceType}</td>
+                            <td>{request.submittedDate}</td>
+                            <td><StatusBadge status={request.status} /></td>
+                            <td>
+                                <Link to={`/care-center/request/${request.id}`} className="btn btn-sm btn-outline-primary">
+                                 Review
+                                </Link>
+                            </td>
+                        </tr>
+                    ))}
                 </tbody>
               </table>
             </div>
