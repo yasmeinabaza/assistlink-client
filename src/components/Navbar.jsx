@@ -1,54 +1,33 @@
-// import { Link } from 'react-router-dom';
-
-// function Navbar() {
-//   return (
-//     <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
-//       <div className="container">
-//         <Link className="navbar-brand fw-bold" to="/">AssistLink</Link>
-
-//         <div className="d-flex">
-//           <Link className="btn btn-outline-light me-2" to="/login">Login </Link>
-//           <Link className="btn btn-primary me-2" to="/register">Register</Link>
-//           <Link className="btn btn-outline-info" to="/care-center">Care Center</Link>
-//           <Link className="btn btn-outline-warning" to="/engineer">Engineer</Link>
-//           <Link className="btn btn-outline-danger" to="/admin">Admin</Link>
-//         </div>
-//       </div>
-//     </nav>
-//   );
-// }
-
-// export default Navbar;
-
-
-
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import './Navbar.css';
 
 function Navbar({ onMenuClick }) {
+  const location = useLocation();
+  const isHome = location.pathname === '/';
+
   return (
-    <header className="mobile-navbar">
+    <header className="home-navbar">
+      <div className="navbar-container">
+        <Link to="/" className="navbar-brand">
+          <span className="brand-mark">A</span>
+          AssistLink
+        </Link>
 
-      <button
-        className="menu-button"
-        onClick={onMenuClick}
-        aria-label="Open navigation"
-      >
-        ☰
-      </button>
-
-
-      <Link
-        to="/"
-        className="mobile-brand"
-      >
-        <span className="mobile-brand-mark">
-          A
-        </span>
-
-        AssistLink
-      </Link>
-
+        {isHome ? (
+          <div className="navbar-actions">
+            <Link to="/login" className="nav-link-login">Login</Link>
+            <Link to="/register" className="nav-link-register">Create Account</Link>
+          </div>
+        ) : (
+          <button
+            className="menu-button"
+            onClick={onMenuClick}
+            aria-label="Open navigation"
+          >
+            ☰
+          </button>
+        )}
+      </div>
     </header>
   );
 }

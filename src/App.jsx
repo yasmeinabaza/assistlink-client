@@ -1,5 +1,5 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
-//import Navbar from './components/Navbar';
+import Navbar from './components/Navbar';
 
 // Pages
 import Home from './pages/Home';
@@ -10,12 +10,12 @@ import Register from './pages/Register';
 import PatientDashboard from './pages/patient/PatientDashboard';
 import NewRequest from './pages/patient/NewRequest';
 import RequestDetails from './pages/patient/RequestDetails';
+import PatientProfile from './pages/patient/PatientProfile';
 
 // Care Center pages
 import CareCenterDashboard from './pages/careCenter/CareCenterDashboard';
 import ReviewRequest from './pages/careCenter/ReviewRequest';  
 import PatientDetail from './pages/careCenter/PatientDetail';
-import PatientProfile from './pages/patient/PatientProfile';
 
 // Engineer pages
 import EngineerDashboard from './pages/engineer/EngineerDashboard';
@@ -37,7 +37,7 @@ function App() {
       {/* <Navbar /> */}
       <Routes>
         {/* Public */}
-        <Route path="/" element={<Home />} />
+         <Route path="/" element={<><Navbar /> <Home /></> } />
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
 
