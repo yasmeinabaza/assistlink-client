@@ -1,6 +1,7 @@
-// Temporary dummy data (will be replaced by backend later)
 
-// Patient requests
+// ============================================
+// PATIENT REQUESTS
+// ============================================
 export const dummyRequests = [
   {
     id: 1,
@@ -62,12 +63,12 @@ export const dummyRequests = [
     patientName: 'Grace Wambui',
     patientId: 3
   },
-    {
+  {
     id: 5,
     requestNumber: 'REQ-1050',
     deviceType: 'Prosthetic Limb',
     reason: 'New Device',
-    status: 'Approved',  // ← This one is approved, needs measurements
+    status: 'Approved',
     submittedDate: '2025-04-15',
     notes: 'Lost left leg below knee in accident. Active lifestyle.',
     careCenter: 'Metropolitan Rehab Center',
@@ -76,11 +77,13 @@ export const dummyRequests = [
     deliveryAddress: '14 Maple Avenue, Apt 2B, Nairobi 00100',
     patientName: 'Sarah Johnson',
     patientId: 1,
-    measurements: null  // No measurements yet
-    }
+    measurements: null
+  }
 ];
 
-// Current logged in user (patient view)
+// ============================================
+// CURRENT LOGGED IN USER (Patient View)
+// ============================================
 export const dummyUser = {
   id: 1,
   name: 'Sarah Johnson',
@@ -90,10 +93,14 @@ export const dummyUser = {
   careCenter: 'Metropolitan Rehab Center',
   careCenterLocation: 'Nairobi',
   careCenterPhone: '+254 20 123 4567',
-  deliveryAddress: '14 Maple Avenue, Apt 2B, Nairobi 00100'
+  deliveryAddress: '14 Maple Avenue, Apt 2B, Nairobi 00100',
+  memberSince: '2025-01-10' 
+
 };
 
-// Care center staff (for care center view)
+// ============================================
+// CARE CENTER STAFF
+// ============================================
 export const dummyCareCenterStaff = {
   id: 1,
   name: 'Dr. Amara Osei',
@@ -102,7 +109,9 @@ export const dummyCareCenterStaff = {
   careCenterLocation: 'Nairobi'
 };
 
-// Patients list (for care center view)
+// ============================================
+// PATIENTS LIST (For Care Center View)
+// ============================================
 export const dummyPatients = [
   {
     id: 1,
@@ -133,14 +142,20 @@ export const dummyPatients = [
   }
 ];
 
-// Engineers list for assignment
+// ============================================
+// ENGINEERS (For Assignment)
+// ============================================
 export const dummyEngineers = [
-  { id: 1, name: 'John Kamau', specialization: 'Prosthetics' },
-  { id: 2, name: 'Mary Akinyi', specialization: 'Orthotics' },
-  { id: 3, name: 'Peter Ochieng', specialization: 'General' }
+  { id: 1, name: 'John Kamau', specialization: 'Prosthetics', status: 'active' },
+  { id: 2, name: 'Mary Akinyi', specialization: 'Orthotics', status: 'active' },
+  { id: 3, name: 'Peter Ochieng', specialization: 'General', status: 'active' },
+  { id: 4, name: 'James Okafor', specialization: 'Prosthetics', status: 'active' },
+  { id: 5, name: 'Elena Petrov', specialization: 'Orthotics', status: 'inactive' }
 ];
 
-// Current logged in engineer
+// ============================================
+// CURRENT LOGGED IN ENGINEER
+// ============================================
 export const dummyEngineer = {
   id: 1,
   name: 'John Kamau',
@@ -149,7 +164,9 @@ export const dummyEngineer = {
   phone: '+254 712 345 678'
 };
 
-// Engineer cases (requests assigned to engineers)
+// ============================================
+// ENGINEER CASES
+// ============================================
 export const dummyEngineerCases = [
   {
     id: 1,
@@ -175,7 +192,7 @@ export const dummyEngineerCases = [
     id: 2,
     requestNumber: 'REQ-1031',
     deviceType: 'Orthotic Device',
-    status: 'Approved',  // Not yet started by engineer
+    status: 'Approved',
     submittedDate: '2025-04-02',
     patientName: 'Grace Wambui',
     patientId: 3,
@@ -214,7 +231,9 @@ export const dummyEngineerCases = [
   }
 ];
 
-// Current logged in admin
+// ============================================
+// ADMIN
+// ============================================
 export const dummyAdmin = {
   id: 1,
   name: 'Admin User',
@@ -223,7 +242,9 @@ export const dummyAdmin = {
   phone: '+254 700 000 000'
 };
 
-// All users in the system
+// ============================================
+// ALL USERS IN THE SYSTEM
+// ============================================
 export const dummyUsers = [
   {
     id: 1,
@@ -267,37 +288,48 @@ export const dummyUsers = [
   },
   {
     id: 5,
-    name: 'John Kamau',
-    email: 'john.kamau@assistlink.com',
+    name: 'Dr. Fatima Al-Hassan',
+    email: 'fatima.alhassan@assistlink.com',
     phone: '+254 756 789 012',
-    role: 'engineer',
+    role: 'care-center',
     status: 'active',
     registeredDate: '2024-11-15',
-    specialization: 'Prosthetics'
+    careCenter: 'City Orthopedic Clinic'
   },
   {
     id: 6,
-    name: 'Mary Akinyi',
-    email: 'mary.akinyi@assistlink.com',
+    name: 'James Okafor',
+    email: 'james.okafor@assistlink.com',
     phone: '+254 767 890 123',
     role: 'engineer',
     status: 'active',
     registeredDate: '2024-10-20',
-    specialization: 'Orthotics'
+    specialization: 'Prosthetics'
   },
   {
     id: 7,
-    name: 'Peter Ochieng',
-    email: 'peter.ochieng@assistlink.com',
+    name: 'Elena Petrov',
+    email: 'elena.petrov@assistlink.com',
     phone: '+254 778 901 234',
     role: 'engineer',
     status: 'inactive',
     registeredDate: '2024-09-01',
-    specialization: 'General'
+    specialization: 'Orthotics'
+  },
+  {
+    id: 8,
+    name: 'Admin User',
+    email: 'admin@assistlink.com',
+    phone: '+254 700 000 000',
+    role: 'admin',
+    status: 'active',
+    registeredDate: '2024-08-01'
   }
 ];
 
-// Care centers for admin management
+// ============================================
+// CARE CENTERS (For Admin Management)
+// ============================================
 export const dummyCareCenters = [
   {
     id: 1,
@@ -313,7 +345,7 @@ export const dummyCareCenters = [
     location: 'Nairobi',
     phone: '+254 20 234 5678',
     patients: 0,
-    staff: 0
+    staff: 1
   },
   {
     id: 3,

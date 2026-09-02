@@ -1,104 +1,117 @@
-import { useState } from 'react';
-import { Link } from 'react-router-dom';
-import { dummyRequests, dummyPatients, dummyCareCenterStaff } from '../../data/dummyData';
-import StatusBadge from '../../components/StatusBadge';
+import { useState, useEffect } from 'react';
+import { Link, useLocation } from 'react-router-dom';
+import Layout from '../../components/Layout';
+import { dummyRequests, dummyCareCenterStaff } from '../../data/dummyData';
+import './CareCenterDashboard.css';
 
 function CareCenterDashboard() {
-  const [viewMode, setViewMode] = useState('requests'); // 'requests' or 'patients'
-  
+  const location = useLocation();
+  const [activeTab, setActiveTab] = useState('dashboard');
   const staff = dummyCareCenterStaff;
-  const patients = dummyPatients;
   const requests = dummyRequests;
 
-  // counts
+  // Get unique patients
+  const patients = [...new Set(requests.map(r => r.patientName))];
   const totalPatients = patients.length;
-  const totalRequests = requests.length;
-  
-  // Count pending requests (status is Submitted or Under Review)
-  const pendingRequests = requests.filter(
-    r => r.status === 'Submitted' || r.status === 'Under Review'
-  ).length;
+  const activeRequests = requests.filter(r => r.status !== 'Delivered' && r.status !== 'Rejected').length;
 
-  // Count active requests (status is not Delivered or Rejected)
-  const activeRequests = requests.filter(
-    r => r.status !== 'Delivered' && r.status !== 'Rejected'
-  ).length;
+  // Set active tab based on URL path
+  useEffect(() => {
+    const path = location.pathname;
+    if (path === '/care-center/requests') {
+      setActiveTab('requests');
+    } else if (path === '/care-center/patients') {
+      setActiveTab('patients');
+    } else if (path === '/care-center') {
+      setActiveTab('dashboard');
+    }
+  }, [location.pathname]);
+
+  // Handle tab change from SideNav
+  const handleTabChange = (tab) => {
+    setActiveTab(tab);
+  };
 
   return (
-    <div className="container py-4">
-      {/* Header */}
-      <div className="d-flex justify-content-between align-items-center mb-4">
-        <div>
-          <h2 className="fw-bold">{staff.careCenter}</h2>
-          <p className="text-muted">
-            {totalPatients} patients · {totalRequests} requests
-          </p>
-        </div>
-        <div className="text-end">
-          <span className="badge bg-success p-2">Care Center Staff</span>
-          <div className="small text-muted">{staff.name}</div>
-        </div>
-      </div>
+    <Layout 
+      userRole="Care Center" 
+      userName={staff.name} 
+      userEmail="amara.osei@assistlink.com"
+      onTabChange={handleTabChange}
+    >
+      <div className="care-center-dashboard">
+        {/* Dashboard View - Information about the center */}
+        {activeTab === 'dashboard' && (
+          <div className="cc-dashboard-view">
+            <div className="cc-header">
+              <h1>{staff.careCenter}</h1>
+              <p className="cc-stats">Welcome back, {staff.name}</p>
+            </div>
 
-      {/* Stats Cards */}
-      <div className="row mb-4">
-        <div className="col-md-3">
-          <div className="card bg-primary text-white">
-            <div className="card-body">
-              <h5 className="card-title">{totalPatients}</h5>
-              <p className="card-text small">Total Patients</p>
+            <div className="cc-stats-grid">
+              <div className="cc-stat-card">
+                <div className="stat-number">{totalPatients}</div>
+                <div className="stat-label">Patients</div>
+              </div>
+              <div className="cc-stat-card">
+                <div className="stat-number">{requests.length}</div>
+                <div className="stat-label">Total Requests</div>
+              </div>
+              <div className="cc-stat-card">
+                <div className="stat-number">{activeRequests}</div>
+                <div className="stat-label">Active Requests</div>
+              </div>
+              <div className="cc-stat-card">
+                <div className="stat-number">{staff.careCenterLocation}</div>
+                <div className="stat-label">Location</div>
+              </div>
             </div>
-          </div>
-        </div>
-        <div className="col-md-3">
-          <div className="card bg-warning text-dark">
-            <div className="card-body">
-              <h5 className="card-title">{pendingRequests}</h5>
-              <p className="card-text small">Pending Review</p>
-            </div>
-          </div>
-        </div>
-        <div className="col-md-3">
-          <div className="card bg-info text-white">
-            <div className="card-body">
-              <h5 className="card-title">{activeRequests}</h5>
-              <p className="card-text small">Active Requests</p>
-            </div>
-          </div>
-        </div>
-        <div className="col-md-3">
-          <div className="card bg-success text-white">
-            <div className="card-body">
-              <h5 className="card-title">{totalRequests}</h5>
-              <p className="card-text small">Total Requests</p>
-            </div>
-          </div>
-        </div>
-      </div>
 
-      {/* View Toggle Buttons */}
-      <div className="btn-group mb-4" role="group">
-        <button 
-          className={`btn ${viewMode === 'requests' ? 'btn-primary' : 'btn-outline-primary'}`}
-          onClick={() => setViewMode('requests')}
-        >
-          Requests
-        </button>
-        <button 
-          className={`btn ${viewMode === 'patients' ? 'btn-primary' : 'btn-outline-primary'}`}
-          onClick={() => setViewMode('patients')}
-        >
-          My Patients
-        </button>
-      </div>
+            <div className="cc-info-card">
+              <h2>About Your Care Center</h2>
+              <p>
+                {staff.careCenter} is a dedicated rehabilitation facility providing 
+                assistive device services to patients in need. Our team works closely 
+                with patients, engineers, and healthcare providers to ensure the best 
+                outcomes.
+              </p>
+              <div className="cc-info-actions">
+                <Link to="/care-center/requests" className="cc-info-btn">
+                  View All Requests
+                </Link>
+                <Link to="/care-center/patients" className="cc-info-btn secondary">
+                  View Patients
+                </Link>
+              </div>
+            </div>
 
-      {/* Requests View */}
-      {viewMode === 'requests' && (
-        <div className="card shadow-sm">
-          <div className="card-body">
-            <h5 className="card-title fw-bold">All Requests</h5>
-            <div className="table-responsive">
-              <table className="table table-hover">
+            <div className="cc-recent">
+              <h3>Recent Activity</h3>
+              <div className="cc-activity-list">
+                {requests.slice(0, 3).map(r => (
+                  <div key={r.id} className="cc-activity-item">
+                    <span className="activity-request">{r.requestNumber}</span>
+                    <span className="activity-patient">{r.patientName}</span>
+                    <span className={`activity-status ${r.status.toLowerCase().replace(' ', '-')}`}>
+                      {r.status}
+                    </span>
+                    <span className="activity-date">{r.submittedDate}</span>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+        )}
+
+        {/* Requests View */}
+        {activeTab === 'requests' && (
+          <div className="cc-tab-view">
+            <div className="cc-tab-header">
+              <h2>All Requests</h2>
+              <p className="cc-tab-stats">{requests.length} total requests</p>
+            </div>
+            <div className="cc-table-wrapper">
+              <table className="cc-table">
                 <thead>
                   <tr>
                     <th>Request ID</th>
@@ -109,61 +122,72 @@ function CareCenterDashboard() {
                     <th>Action</th>
                   </tr>
                 </thead>
-
                 <tbody>
-                    {requests.map(request => (
-                        <tr key={request.id}>
-                            <td>{request.requestNumber}</td>
-                            <td>{request.patientName}</td>
-                            <td>{request.deviceType}</td>
-                            <td>{request.submittedDate}</td>
-                            <td><StatusBadge status={request.status} /></td>
-                            <td>
-                                <Link to={`/care-center/request/${request.id}`} className="btn btn-sm btn-outline-primary">
-                                 Review
-                                </Link>
-                            </td>
-                        </tr>
-                    ))}
+                  {requests.map(r => (
+                    <tr key={r.id}>
+                      <td className="cc-req-id">{r.requestNumber}</td>
+                      <td>
+                        <Link to={`/care-center/patient/${r.patientId}`} className="cc-patient-link">
+                          {r.patientName}
+                        </Link>
+                      </td>
+                      <td>{r.deviceType}</td>
+                      <td>{r.submittedDate}</td>
+                      <td>
+                        <span className={`status-badge ${r.status.toLowerCase().replace(' ', '-')}`}>
+                          {r.status}
+                        </span>
+                      </td>
+                      <td>
+                        <Link to={`/care-center/request/${r.id}`} className="cc-btn-view">
+                          View
+                        </Link>
+                      </td>
+                    </tr>
+                  ))}
                 </tbody>
               </table>
             </div>
           </div>
-        </div>
-      )}
+        )}
 
-      {/* Patients View */}
-      {viewMode === 'patients' && (
-        <div>
-          <h5 className="fw-bold mb-3">My Patients</h5>
-          {patients.map(patient => (
-            <div key={patient.id} className="card shadow-sm mb-3">
-              <div className="card-body">
-                <div className="row align-items-center">
-                  <div className="col-md-8">
-                    <h6 className="fw-bold mb-1">{patient.name}</h6>
-                    <div className="small text-muted">
-                      <div>DOB: {patient.dateOfBirth}</div>
-                      <div>{patient.email}</div>
-                      <div>{patient.phone}</div>
-                      <div>{patient.address}</div>
+        {/* Patients View */}
+        {activeTab === 'patients' && (
+          <div className="cc-tab-view">
+            <div className="cc-tab-header">
+              <h2>My Patients</h2>
+              <p className="cc-tab-stats">{totalPatients} patients</p>
+            </div>
+            <div className="cc-patients-list">
+              {patients.map(name => {
+                const patientRequests = requests.filter(r => r.patientName === name);
+                const active = patientRequests.filter(r => r.status !== 'Delivered' && r.status !== 'Rejected');
+                const patientId = patientRequests[0]?.patientId;
+
+                return (
+                  <div key={name} className="cc-patient-card">
+                    <div className="cc-patient-info">
+                      <Link to={`/care-center/patient/${patientId}`} className="cc-patient-name">
+                        <h4>{name}</h4>
+                      </Link>
+                      <p className="cc-patient-detail">📧 {name.toLowerCase().replace(' ', '.')}@email.com</p>
+                      <p className="cc-patient-detail">📍 123 Main St, Nairobi</p>
+                    </div>
+                    <div className="cc-patient-stats">
+                      <span className="cc-stat-badge">{patientRequests.length} requests</span>
+                      <span className="cc-stat-badge active">{active.length} active</span>
+                      <Link to={`/care-center/patient/${patientId}`} className="cc-btn-view">
+                        View
+                      </Link>
                     </div>
                   </div>
-                  <div className="col-md-4 text-md-end">
-                    <Link 
-                      to={`/care-center/patient/${patient.id}`} 
-                      className="btn btn-outline-primary btn-sm"
-                    >
-                      View
-                    </Link>
-                  </div>
-                </div>
-              </div>
+                );
+              })}
             </div>
-          ))}
-        </div>
-      )}
-    </div>
+          </div>
+        )}
+      </div>
+    </Layout>
   );
 }
 

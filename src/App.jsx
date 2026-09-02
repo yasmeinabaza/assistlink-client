@@ -1,5 +1,5 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import Navbar from './components/Navbar';
+//import Navbar from './components/Navbar';
 
 // Pages
 import Home from './pages/Home';
@@ -14,6 +14,8 @@ import RequestDetails from './pages/patient/RequestDetails';
 // Care Center pages
 import CareCenterDashboard from './pages/careCenter/CareCenterDashboard';
 import ReviewRequest from './pages/careCenter/ReviewRequest';  
+import PatientDetail from './pages/careCenter/PatientDetail';
+import PatientProfile from './pages/patient/PatientProfile';
 
 // Engineer pages
 import EngineerDashboard from './pages/engineer/EngineerDashboard';
@@ -21,13 +23,11 @@ import EngineerCase from './pages/engineer/EngineerCase';
 
 //Admin pages
 import AdminDashboard from './pages/admin/AdminDashboard';
-import UserManagement from './pages/admin/UserManagement';
-
 
 function App() {
   return (
     <BrowserRouter>
-      <Navbar />
+      {/* <Navbar /> */}
       <Routes>
         {/* Public */}
         <Route path="/" element={<Home />} />
@@ -38,10 +38,14 @@ function App() {
         <Route path="/patient" element={<PatientDashboard />} />
         <Route path="/patient/request/new" element={<NewRequest />} />
         <Route path="/patient/request/:id" element={<RequestDetails />} />
+        <Route path="/patient/profile" element={<PatientProfile />} /> 
 
         {/* Care Center */}
         <Route path="/care-center" element={<CareCenterDashboard />} />
+        <Route path="/care-center/requests" element={<CareCenterDashboard />} />
+        <Route path="/care-center/patients" element={<CareCenterDashboard />} />
         <Route path="/care-center/request/:id" element={<ReviewRequest />} />
+        <Route path="/care-center/patient/:id" element={<PatientDetail />} />
 
         {/* Engineer */}
         <Route path="/engineer" element={<EngineerDashboard />} />
@@ -49,8 +53,7 @@ function App() {
 
         {/* Admin */}
         <Route path="/admin" element={<AdminDashboard />} />
-        <Route path="/admin/users" element={<UserManagement />} />
-
+        
       </Routes>
     </BrowserRouter>
   );

@@ -1,0 +1,167 @@
+.review-request-page {
+    max-width: 1100px;
+    margin: 0 auto;
+}
+
+.review-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 8px;
+}
+
+.review-header h1 {
+    font-size: 22px;
+    font-weight: 700;
+    color: #1f2937;
+}
+
+.review-submitted {
+    color: #6b7280;
+    font-size: 14px;
+    margin-bottom: 24px;
+}
+
+.review-grid {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    gap: 30px;
+}
+
+.review-main {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.info-card {
+    background: white;
+    border-radius: 10px;
+    padding: 18px 20px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.06);
+}
+
+.info-card h3 {
+    font-size: 13px;
+    font-weight: 600;
+    color: #6b7280;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-bottom: 10px;
+}
+
+.info-row {
+    font-size: 14px;
+    color: #4b5563;
+    padding: 3px 0;
+}
+
+.info-row strong {
+    color: #1f2937;
+    font-weight: 500;
+}
+
+.notes-text {
+    color: #4b5563;
+    font-size: 14px;
+    margin: 0;
+}
+
+.address-text {
+    color: #4b5563;
+    font-size: 14px;
+}
+
+.review-sidebar {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.action-card {
+    background: white;
+    border-radius: 10px;
+    padding: 20px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.06);
+}
+
+.action-card h3 {
+    font-size: 14px;
+    font-weight: 600;
+    color: #1f2937;
+    margin-bottom: 8px;
+}
+
+.engineer-select {
+    width: 100%;
+    padding: 10px 14px;
+    border: 1px solid #d1d5db;
+    border-radius: 6px;
+    font-size: 14px;
+    margin-bottom: 16px;
+}
+
+.engineer-select:focus {
+    outline: none;
+    border-color: #245f92;
+}
+
+.action-buttons {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.btn-approve {
+    background: #2ecc71;
+    color: white;
+    padding: 10px;
+    border: none;
+    border-radius: 6px;
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+
+.btn-approve:hover:not(:disabled) {
+    background: #27ae60;
+}
+
+.btn-approve:disabled {
+    background: #a7d7b5;
+    cursor: not-allowed;
+}
+
+.btn-reject {
+    background: #ef4444;
+    color: white;
+    padding: 10px;
+    border: none;
+    border-radius: 6px;
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+
+.btn-reject:hover:not(:disabled) {
+    background: #dc2626;
+}
+
+.btn-reject:disabled {
+    background: #f5a3a3;
+    cursor: not-allowed;
+}
+
+.warning-text {
+    color: #f59e0b;
+    font-size: 12px;
+    margin-top: 8px;
+}
+
+@media (max-width: 768px) {
+    .review-grid {
+        grid-template-columns: 1fr;
+    }
+}
