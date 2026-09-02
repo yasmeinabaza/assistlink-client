@@ -23,6 +23,13 @@ import EngineerCase from './pages/engineer/EngineerCase';
 
 //Admin pages
 import AdminDashboard from './pages/admin/AdminDashboard';
+import ManagePatients from './pages/admin/ManagePatients';
+import AddPatient from './pages/admin/AddPatient';
+import ManageCareCenters from './pages/admin/ManageCareCenters';
+import AddCareCenter from './pages/admin/AddCareCenter';
+import ManageEngineers from './pages/admin/ManageEngineers';
+import AddEngineer from './pages/admin/AddEngineer';
+import AllRequests from './pages/admin/AllRequests';
 
 function App() {
   return (
@@ -53,7 +60,13 @@ function App() {
 
         {/* Admin */}
         <Route path="/admin" element={<AdminDashboard />} />
-        
+        <Route path="/admin/patients" element={<ManagePatients />} />
+        <Route path="/admin/patients/add" element={<AddPatient />} />
+        <Route path="/admin/centers" element={<ManageCareCenters />} />
+        <Route path="/admin/centers/add" element={<AddCareCenter />} />
+        <Route path="/admin/engineers" element={<ManageEngineers />} />
+        <Route path="/admin/engineers/add" element={<AddEngineer />} />
+        <Route path="/admin/requests" element={<AllRequests />} />        
       </Routes>
     </BrowserRouter>
   );

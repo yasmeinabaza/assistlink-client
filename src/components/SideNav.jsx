@@ -19,7 +19,7 @@ function SideNav({ userRole, userName, userEmail, onNavigate, onTabChange }) {
       case 'care-center':
         return [
           { path: '/care-center', label: 'Dashboard', icon: '⌂' },
-          { path: '/care-center/requests', label: 'Requests', icon: '📋' },
+          { path: '/care-center/requests', label: 'Requests', icon: '○' },
           { path: '/care-center/patients', label: 'My Patients', icon: '○' }
         ];
 
@@ -32,6 +32,10 @@ function SideNav({ userRole, userName, userEmail, onNavigate, onTabChange }) {
       case 'admin':
         return [
           { path: '/admin', label: 'Dashboard', icon: '⌂' },
+          { path: '/admin/patients', label: 'Patients', icon: '○' },
+          { path: '/admin/centers', label: 'Care Centers', icon: '○' },
+          { path: '/admin/engineers', label: 'Engineers', icon: '○' },
+          { path: '/admin/requests', label: 'All Requests', icon: '○' }
         ];
 
       default:
