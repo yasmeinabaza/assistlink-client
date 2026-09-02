@@ -1,0 +1,147 @@
+.engineer-dashboard {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+.engineer-header-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 16px;
+    margin-bottom: 20px;
+}
+
+.engineer-header-row h1 {
+    font-size: 24px;
+    font-weight: 700;
+    color: #1f2937;
+    margin: 0;
+}
+
+.engineer-subtitle {
+    color: #6b7280;
+    font-size: 14px;
+    margin: 0;
+}
+
+.engineer-search {
+    padding: 8px 14px;
+    border: 1px solid #d1d5db;
+    border-radius: 6px;
+    font-size: 14px;
+    min-width: 240px;
+}
+
+.engineer-search:focus {
+    outline: none;
+    border-color: #245f92;
+}
+
+.engineer-table-wrapper {
+    background: white;
+    border-radius: 10px;
+    padding: 0 20px 4px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.06);
+    overflow-x: auto;
+}
+
+.engineer-table {
+    width: 100%;
+    border-collapse: collapse;
+    min-width: 650px;
+}
+
+.engineer-table th {
+    text-align: left;
+    padding: 14px 12px 10px;
+    font-size: 12px;
+    font-weight: 600;
+    color: #6b7280;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    border-bottom: 1px solid #e5e7eb;
+}
+
+.engineer-table td {
+    padding: 12px;
+    border-bottom: 1px solid #f3f4f6;
+    font-size: 14px;
+    vertical-align: middle;
+}
+
+.engineer-table tr:last-child td {
+    border-bottom: none;
+}
+
+.eng-req-id {
+    font-weight: 500;
+    color: #1f2937;
+}
+
+.eng-btn-view {
+    padding: 4px 14px;
+    background: #245f92;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    font-size: 12px;
+    font-weight: 500;
+    text-decoration: none;
+    display: inline-block;
+    transition: background 0.2s;
+    cursor: pointer;
+}
+
+.eng-btn-view:hover {
+    background: #1a4a73;
+    color: white;
+    text-decoration: none;
+}
+
+/* Status Badges */
+.engineer-table .status-badge {
+    padding: 4px 14px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 500;
+    display: inline-block;
+}
+
+.engineer-table .status-badge.submitted {
+    background: #4facfe;
+    color: white;
+}
+
+.engineer-table .status-badge.under-review {
+    background: #f39c12;
+    color: white;
+}
+
+.engineer-table .status-badge.approved {
+    background: #00b894;
+    color: white;
+}
+
+.engineer-table .status-badge.in-progress {
+    background: #6c5ce7;
+    color: white;
+}
+
+.engineer-table .status-badge.delivered {
+    background: #2ecc71;
+    color: white;
+}
+
+@media (max-width: 768px) {
+    .engineer-header-row {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .engineer-search {
+        min-width: auto;
+        width: 100%;
+    }
+}

@@ -1,0 +1,73 @@
+.app-layout {
+    display: flex;
+    min-height: 100vh;
+    background-color: #f5f6f8;
+}
+
+/* Desktop sidebar */
+.desktop-sidebar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 230px;
+    height: 100vh;
+    z-index: 100;
+}
+
+/* Main content */
+.app-content {
+    flex: 1;
+    min-height: 100vh;
+    margin-left: 230px;
+    padding: 32px 40px;
+    background-color: #f5f6f8;
+}
+
+/* Mobile elements - hidden by default */
+.mobile-sidebar,
+.mobile-sidebar-overlay {
+    display: none;
+}
+
+/* Mobile */
+@media (max-width: 768px) {
+    .desktop-sidebar {
+        display: none;
+    }
+
+    .app-content {
+        margin-left: 0;
+        padding: 80px 16px 24px;
+    }
+
+    .mobile-sidebar {
+        display: block;
+        position: fixed;
+        top: 0;
+        left: -260px;
+        width: 230px;
+        height: 100vh;
+        z-index: 1000;
+        transition: left 0.25s ease;
+    }
+
+    .mobile-sidebar.open {
+        left: 0;
+    }
+
+    .mobile-sidebar-overlay {
+        display: block;
+        position: fixed;
+        inset: 0;
+        background-color: rgba(0, 0, 0, 0.35);
+        opacity: 0;
+        visibility: hidden;
+        z-index: 999;
+        transition: opacity 0.25s ease;
+    }
+
+    .mobile-sidebar-overlay.show {
+        opacity: 1;
+        visibility: visible;
+    }
+}

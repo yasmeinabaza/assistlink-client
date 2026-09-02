@@ -1,82 +1,186 @@
+// import { Link } from 'react-router-dom';
+// import Layout from '../../components/Layout';
+// import { dummyRequests, dummyUser } from '../../data/dummyData';
+// import './PatientDashboard.css';
+
+// function PatientDashboard() {
+//   const requests = dummyRequests;
+//   const user = dummyUser;
+
+//   const statusOrder = ['Submitted', 'Under Review', 'Approved', 'In Progress', 'Delivered'];
+
+//   const getProgressWidth = (status) => {
+//     const index = statusOrder.indexOf(status);
+//     return ((index + 1) / statusOrder.length) * 100;
+//   };
+
+//   return (
+//     <Layout userRole="Patient" userName={user.name} userEmail={user.email}>
+//       <div className="patient-dashboard">
+//         <div className="page-header">
+//           <h1>My Dashboard</h1>
+//           <p className="welcome-text">Welcome back, {user.name.split(' ')[0]}.</p>
+//         </div>
+
+//         <div className="dashboard-grid">
+//           {/* Requests Section */}
+//           <div className="requests-section">
+//             <div className="section-header">
+//               <h2>My Requests</h2>
+//               <Link to="/patient/request/new" className="btn-new-request">
+//                 + New Request
+//               </Link>
+//             </div>
+
+//             {requests.map(request => (
+//               <div key={request.id} className="request-card">
+//                 <div className="request-header">
+//                   <div className="request-id-status">
+//                     <span className="request-number">{request.requestNumber}</span>
+//                     <span className={`status-badge ${request.status.toLowerCase().replace(' ', '-')}`}>
+//                       {request.status}
+//                     </span>
+//                   </div>
+//                 </div>
+
+//                 <div className="request-body">
+//                   <h4>{request.deviceType}</h4>
+//                   <p className="request-meta">Submitted {request.submittedDate}</p>
+                  
+//                   <div className="progress-steps">
+//                     {statusOrder.map((step, index) => (
+//                       <div key={step} className="step-item">
+//                         <div className={`step-dot ${index <= statusOrder.indexOf(request.status) ? 'completed' : ''}`} />
+//                         <span className="step-label">{step}</span>
+//                       </div>
+//                     ))}
+//                   </div>
+//                 </div>
+
+//                 <div className="request-footer">
+//                   <Link to={`/patient/request/${request.id}`} className="btn-view">
+//                     View Request
+//                   </Link>
+//                 </div>
+//               </div>
+//             ))}
+//           </div>
+
+//           {/* Sidebar */}
+//           <div className="dashboard-sidebar">
+//             <div className="sidebar-card">
+//               <h3>My Care Center</h3>
+//               <p className="center-name">{user.careCenter}</p>
+//               <p className="center-location">{user.careCenterLocation}</p>
+//               <p className="center-phone">{user.careCenterPhone}</p>
+//             </div>
+
+//             <div className="sidebar-card">
+//               <div className="address-header">
+//                 <h3>Delivery Address</h3>
+//                 <button className="btn-edit-address">Edit address</button>
+//               </div>
+//               <p className="address-text">{user.deliveryAddress}</p>
+//             </div>
+//           </div>
+//         </div>
+//       </div>
+//     </Layout>
+//   );
+// }
+
+// export default PatientDashboard;
+
 import { Link } from 'react-router-dom';
+import Layout from '../../components/Layout';
 import { dummyRequests, dummyUser } from '../../data/dummyData';
+import './PatientDashboard.css';
 
 function PatientDashboard() {
   const requests = dummyRequests;
   const user = dummyUser;
 
+  const statusOrder = ['Submitted', 'Under Review', 'Approved', 'In Progress', 'Delivered'];
+
   return (
-    <div className="container py-4">
-      <div className="row">
-        {/* Main content - left side */}
-        <div className="col-lg-8">
-          <div className="d-flex justify-content-between align-items-center mb-4">
-            <div>
+    <Layout userRole="Patient" userName={user.name} userEmail={user.email}>
+      <div className="patient-dashboard">
+        <div className="dashboard-header">
+          <h1>My Dashboard</h1>
+          <p className="welcome-text">Welcome back, {user.name.split(' ')[0]}.</p>
+        </div>
+
+        <div className="dashboard-grid">
+          {/* Left - Requests */}
+          <div className="requests-column">
+            <div className="section-header">
               <h2>My Requests</h2>
-              <p className="text-muted">Welcome back, {user.name.split(' ')[0]}.</p>
-            </div>
-            <Link to="/patient/request/new" className="btn btn-success">
-              + New Request
-            </Link>
-          </div>
-          
-          {requests.length === 0 ? (
-            <div className="text-center py-5">
-              <p className="text-muted">You haven't submitted any requests yet.</p>
-              <Link to="/patient/request/new" className="btn btn-primary">
-                Create Your First Request
+              <Link to="/patient/request/new" className="btn-new-request">
+                + New Request
               </Link>
             </div>
-          ) : (
-            requests.map(request => (
-              <div key={request.id} className="card shadow-sm mb-3">
-                <div className="card-body">
-                  <div className="d-flex justify-content-between align-items-start">
-                    <div>
-                      <h5 className="card-title fw-bold">{request.requestNumber}</h5>
-                      <h6 className="card-subtitle text-muted">{request.deviceType}</h6>
-                    </div>
-                    <span className="badge bg-secondary px-3 py-2">
+
+            {requests.map(request => {
+              const currentStep = statusOrder.indexOf(request.status) + 1;
+              const totalSteps = statusOrder.length;
+              const progressWidth = (currentStep / totalSteps) * 100;
+
+              return (
+                <div key={request.id} className="request-card">
+                  <div className="request-top">
+                    <span className="request-id">{request.requestNumber}</span>
+                    <span className={`status-badge ${request.status.toLowerCase().replace(' ', '-')}`}>
                       {request.status}
                     </span>
                   </div>
-                  
-                  <p className="card-text small text-muted">
-                    Submitted: {request.submittedDate}
-                  </p>
-                  
-                  <div className="d-flex justify-content-between">
-                    <span className="small text-muted">Status: {request.status}</span>
-                    <Link to={`/patient/request/${request.id}`} className="btn btn-outline-primary btn-sm">
+
+                  <h3 className="request-device">{request.deviceType}</h3>
+                  <p className="request-meta">Submitted {request.submittedDate}</p>
+
+                  <div className="progress-steps">
+                    {statusOrder.map((step, idx) => (
+                      <div key={step} className="step-wrapper">
+                        <div className={`step-dot ${idx < currentStep ? 'done' : ''}`} />
+                        <span className={`step-label ${idx < currentStep ? 'done' : ''}`}>
+                          {step}
+                        </span>
+                        {idx < statusOrder.length - 1 && (
+                          <div className={`step-line ${idx < currentStep - 1 ? 'done' : ''}`} />
+                        )}
+                      </div>
+                    ))}
+                  </div>
+
+                  <div className="request-footer">
+                    <Link to={`/patient/request/${request.id}`} className="btn-view">
                       View Request
                     </Link>
                   </div>
                 </div>
-              </div>
-            ))
-          )}
-        </div>
-        
-        {/* Sidebar - right side */}
-        <div className="col-lg-4">
-          <div className="card shadow-sm mb-3">
-            <div className="card-body">
-              <h6 className="card-title fw-bold">My Care Center</h6>
-              <p className="mb-0 fw-semibold">{user.careCenter}</p>
-              <p className="text-muted small mb-1">{user.careCenterLocation}</p>
-              <p className="text-muted small">{user.careCenterPhone}</p>
-            </div>
+              );
+            })}
           </div>
-          
-          <div className="card shadow-sm">
-            <div className="card-body">
-              <h6 className="card-title fw-bold">Delivery Address</h6>
-              <p className="text-muted small mb-0">{user.deliveryAddress}</p>
+
+          {/* Right - Sidebar */}
+          <div className="sidebar-column">
+            <div className="sidebar-card">
+              <h3>My Care Center</h3>
+              <p className="center-name">{user.careCenter}</p>
+              <p className="center-location">{user.careCenterLocation}</p>
+              <p className="center-phone">📞 {user.careCenterPhone}</p>
+            </div>
+
+            <div className="sidebar-card">
+              <div className="address-header">
+                <h3>Delivery Address</h3>
+                <button className="btn-edit">Edit address</button>
+              </div>
+              <p className="address-text">{user.deliveryAddress}</p>
             </div>
           </div>
         </div>
       </div>
-    </div>
+    </Layout>
   );
 }
 
