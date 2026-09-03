@@ -1,45 +1,103 @@
-import { useState } from 'react';
+// Import React hooks and components
+import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import Layout from '../../components/Layout';
-import { dummyUser } from '../../data/dummyData';
+import { updateUser } from '../../services/api';
 import './PatientProfile.css';
 
 function PatientProfile() {
-  const user = dummyUser;
-  
-  // Separate edit states for personal info and address
+  // State variables
+  const [user, setUser] = useState(null);
   const [editingPersonal, setEditingPersonal] = useState(false);
   const [editingAddress, setEditingAddress] = useState(false);
-  
+  const [loading, setLoading] = useState(false);
   const [formData, setFormData] = useState({
-    name: user.name,
-    email: user.email,
-    phone: user.phone,
-    dateOfBirth: '1985-03-14',
-    careCenter: user.careCenter,
-    careCenterLocation: user.careCenterLocation,
-    careCenterPhone: user.careCenterPhone,
+    name: '',
+    email: '',
+    phone: '',
+    dateOfBirth: '',
+    careCenterName: '',
+    careCenterLocation: '',
     streetAddress: '14 Maple Avenue, Apt 2B',
     city: 'Nairobi',
     postcode: '00100'
   });
 
+  // Get user from localStorage on mount
+  useEffect(() => {
+    const savedUser = localStorage.getItem('user');
+    if (savedUser) {
+      const userData = JSON.parse(savedUser);
+      setUser(userData);
+      // Populate form with user data
+      setFormData({
+        name: userData.name || '',
+        email: userData.email || '',
+        phone: userData.phone || '',
+        dateOfBirth: userData.dateOfBirth || '1985-03-14',
+        careCenterName: userData.careCenterName || '',
+        careCenterLocation: userData.careCenterLocation || '',
+        streetAddress: '14 Maple Avenue, Apt 2B',
+        city: 'Nairobi',
+        postcode: '00100'
+      });
+    }
+  }, []);
+
+  // Handle form input changes
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData(prev => ({ ...prev, [name]: value }));
   };
 
-  const handlePersonalSubmit = (e) => {
+  // Handle personal information update
+  const handlePersonalSubmit = async (e) => {
     e.preventDefault();
-    alert('Personal information updated successfully! (Demo)');
-    setEditingPersonal(false);
+    setLoading(true);
+    try {
+      // Send update to backend
+      const updatedUser = await updateUser(user.id, {
+        name: formData.name,
+        email: formData.email,
+        phone: formData.phone
+      });
+      // Update localStorage with new data
+      const savedUser = localStorage.getItem('user');
+      if (savedUser) {
+        const userData = JSON.parse(savedUser);
+        userData.name = updatedUser.name;
+        userData.email = updatedUser.email;
+        userData.phone = updatedUser.phone;
+        localStorage.setItem('user', JSON.stringify(userData));
+        setUser(userData);
+      }
+      alert('Personal information updated successfully!');
+      setEditingPersonal(false);
+    } catch (error) {
+      alert(error.message || 'Failed to update profile');
+    } finally {
+      setLoading(false);
+    }
   };
 
-  const handleAddressSubmit = (e) => {
+  // Handle address update
+  const handleAddressSubmit = async (e) => {
     e.preventDefault();
+    // In a real app, you'd have a delivery address table
     alert('Delivery address updated successfully! (Demo)');
     setEditingAddress(false);
   };
+
+  // Show loading if user not loaded
+  if (!user) {
+    return (
+      <Layout userRole="Patient" userName="Patient" userEmail="">
+        <div className="patient-profile">
+          <p>Loading profile...</p>
+        </div>
+      </Layout>
+    );
+  }
 
   return (
     <Layout userRole="Patient" userName={user.name} userEmail={user.email}>
@@ -50,7 +108,7 @@ function PatientProfile() {
         </div>
 
         <div className="profile-grid">
-          {/* Left - Personal Information */}
+          {/* Left Column - Main Content */}
           <div className="profile-main">
             {/* Personal Information Card */}
             <div className="profile-card">
@@ -84,7 +142,7 @@ function PatientProfile() {
                   </div>
                   <div className="profile-info-item full-width">
                     <label>Member Since</label>
-                    <p>{user.memberSince || '2025-01-10'}</p>
+                    <p>{user.createdAt || '2025-01-10'}</p>
                   </div>
                 </div>
               ) : (
@@ -102,13 +160,12 @@ function PatientProfile() {
                       />
                     </div>
                     <div className="form-group">
-                      <label>Date of Birth *</label>
+                      <label>Date of Birth</label>
                       <input
                         type="date"
                         name="dateOfBirth"
                         value={formData.dateOfBirth}
                         onChange={handleChange}
-                        required
                       />
                     </div>
                   </div>
@@ -134,7 +191,9 @@ function PatientProfile() {
                     </div>
                   </div>
                   <div className="form-actions">
-                    <button type="submit" className="btn-save">Save Changes</button>
+                    <button type="submit" className="btn-save" disabled={loading}>
+                      {loading ? 'Saving...' : 'Save Changes'}
+                    </button>
                     <button type="button" className="btn-cancel" onClick={() => setEditingPersonal(false)}>
                       Cancel
                     </button>
@@ -147,11 +206,9 @@ function PatientProfile() {
             <div className="profile-card">
               <h3>Care Center</h3>
               <div className="care-center-info">
-                <div className="care-center-name">{formData.careCenter}</div>
+                <div className="care-center-name">{formData.careCenterName}</div>
                 <div className="care-center-detail">{formData.careCenterLocation}</div>
-                <div className="care-center-detail">📞 {formData.careCenterPhone}</div>
                 <span className="care-center-status">Connected</span>
-                <button className="btn-change-carecenter">Change</button>
               </div>
             </div>
 
@@ -215,13 +272,13 @@ function PatientProfile() {
             </div>
           </div>
 
-          {/* Right - Sidebar */}
+          {/* Right Column - Sidebar */}
           <div className="profile-sidebar">
             <div className="profile-card">
               <h3>Account Summary</h3>
               <div className="summary-item">
                 <span className="summary-label">Member Since</span>
-                <span className="summary-value">{user.memberSince || '2025-01-10'}</span>
+                <span className="summary-value">{user.createdAt || '2025-01-10'}</span>
               </div>
               <div className="summary-item">
                 <span className="summary-label">Role</span>
@@ -229,11 +286,11 @@ function PatientProfile() {
               </div>
               <div className="summary-item">
                 <span className="summary-label">Care Center</span>
-                <span className="summary-value">{user.careCenter}</span>
+                <span className="summary-value">{formData.careCenterName}</span>
               </div>
               <div className="summary-item">
                 <span className="summary-label">Requests</span>
-                <span className="summary-value">2</span>
+                <span className="summary-value">{user.requestsCount || 0}</span>
               </div>
             </div>
 

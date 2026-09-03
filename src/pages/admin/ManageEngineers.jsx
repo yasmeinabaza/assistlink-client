@@ -1,45 +1,115 @@
-import { useState } from 'react';
+// Import React hooks and components
+import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import Layout from '../../components/Layout';
-import { dummyAdmin, dummyEngineers } from '../../data/dummyData';
+// Import API functions
+import { getEngineers, deleteEngineer, updateEngineer } from '../../services/api';
 import './ManageEngineers.css';
 
 function ManageEngineers() {
-  const admin = dummyAdmin;
-  const [engineers, setEngineers] = useState(dummyEngineers);
+  // State variables
+  const [user, setUser] = useState(null);
+  const [engineers, setEngineers] = useState([]);
   const [search, setSearch] = useState('');
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
 
+  // Get user from localStorage
+  useEffect(() => {
+    const savedUser = localStorage.getItem('user');
+    if (savedUser) {
+      setUser(JSON.parse(savedUser));
+    }
+  }, []);
+
+  // Fetch engineers when user is loaded
+  useEffect(() => {
+    if (user) {
+      fetchEngineers();
+    }
+  }, [user]);
+
+  // Function to fetch engineers from backend
+  const fetchEngineers = async () => {
+    try {
+      setLoading(true);
+      const data = await getEngineers();
+      setEngineers(data);
+      setError(null);
+    } catch (err) {
+      setError(err.message || 'Failed to fetch engineers');
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  // Filter engineers based on search
   const filteredEngineers = engineers.filter(e =>
     e.name.toLowerCase().includes(search.toLowerCase()) ||
     e.specialization.toLowerCase().includes(search.toLowerCase())
   );
 
-  const handleDelete = (id) => {
+  // Handle delete engineer
+  const handleDelete = async (id) => {
     if (window.confirm('Are you sure you want to delete this engineer?')) {
-      setEngineers(engineers.filter(e => e.id !== id));
-      alert('Engineer deleted! (Demo)');
+      try {
+        await deleteEngineer(id);
+        alert('Engineer deleted successfully!');
+        fetchEngineers(); // Refresh list
+      } catch (err) {
+        alert(err.message || 'Failed to delete engineer');
+      }
     }
   };
 
-  const handleToggleStatus = (id) => {
-    setEngineers(engineers.map(e => {
-      if (e.id === id) {
-        const newStatus = e.status === 'active' ? 'inactive' : 'active';
-        alert(`${e.name} status changed to ${newStatus}`);
-        return { ...e, status: newStatus };
-      }
-      return e;
-    }));
+  // Handle toggle engineer status (active/inactive)
+  const handleToggleStatus = async (id) => {
+    const engineer = engineers.find(e => e.id === id);
+    const newStatus = engineer.status === 'active' ? 'inactive' : 'active';
+    
+    try {
+      await updateEngineer(id, { status: newStatus });
+      alert(`${engineer.name} status changed to ${newStatus}`);
+      fetchEngineers(); // Refresh list
+    } catch (err) {
+      alert(err.message || 'Failed to update status');
+    }
   };
 
+  // Show loading state
+  if (loading) {
+    return (
+      <Layout userRole="Administrator" userName={user?.name || 'Admin'} userEmail={user?.email || ''}>
+        <div className="manage-engineers">
+          <div className="loading-text">Loading engineers...</div>
+        </div>
+      </Layout>
+    );
+  }
+
+  // Show error state
+  if (error) {
+    return (
+      <Layout userRole="Administrator" userName={user?.name || 'Admin'} userEmail={user?.email || ''}>
+        <div className="manage-engineers">
+          <div className="error-text">Error: {error}</div>
+          <button onClick={fetchEngineers}>Retry</button>
+        </div>
+      </Layout>
+    );
+  }
+
+  // Main render
   return (
-    <Layout userRole="Administrator" userName={admin.name} userEmail={admin.email}>
+    <Layout userRole="Administrator" userName={user?.name || 'Admin'} userEmail={user?.email || ''}>
       <div className="manage-engineers">
+        {/* Page Header */}
         <div className="me-header">
           <h1>Engineers</h1>
           <p className="me-stats">{engineers.length} registered engineers</p>
         </div>
 
+        {/* Controls: Search and Add Button */}
         <div className="me-controls">
           <Link to="/admin/engineers/add" className="btn-add-engineer">
             + Add Engineer
@@ -120,6 +190,7 @@ function ManageEngineers() {
           ))}
         </div>
 
+        {/* Footer */}
         <div className="me-footer">
           <span>Showing {filteredEngineers.length} of {engineers.length} engineers</span>
         </div>
