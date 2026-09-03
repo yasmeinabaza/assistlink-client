@@ -1,229 +1,117 @@
-// import { useState } from 'react';
-// import { useParams, Link, useNavigate } from 'react-router-dom';
-// import { dummyEngineerCases } from '../../data/dummyData';
-// import StatusBadge from '../../components/StatusBadge';
-
-// function EngineerCase() {
-//   const { id } = useParams();
-//   const navigate = useNavigate();
-//   const caseId = parseInt(id);
-  
-//   // Find the case
-//   const caseItem = dummyEngineerCases.find(c => c.id === caseId);
-  
-//   const [isProcessing, setIsProcessing] = useState(false);
-
-//   // Handle status update to "In Progress"
-//   const handleStartWork = () => {
-//     setIsProcessing(true);
-//     setTimeout(() => {
-//       alert(`Case ${caseItem.requestNumber} is now in progress.`);
-//       setIsProcessing(false);
-//       navigate('/engineer');
-//     }, 500);
-//   };
-
-//   // Handle status update to "Delivered"
-//   const handleDeliver = () => {
-//     if (window.confirm(`Mark ${caseItem.requestNumber} as delivered?`)) {
-//       setIsProcessing(true);
-//       setTimeout(() => {
-//         alert(`Case ${caseItem.requestNumber} marked as delivered!`);
-//         setIsProcessing(false);
-//         navigate('/engineer');
-//       }, 500);
-//     }
-//   };
-
-//   // If case not found
-//   if (!caseItem) {
-//     return (
-//       <div className="container py-5 text-center">
-//         <h4>Case not found</h4>
-//         <Link to="/engineer" className="btn btn-primary">Back to Dashboard</Link>
-//       </div>
-//     );
-//   }
-
-//   return (
-//     <div className="container py-4">
-//       {/* Back button */}
-//       <Link to="/engineer" className="btn btn-outline-secondary btn-sm mb-3">
-//         ← Back to Dashboard
-//       </Link>
-
-//       {/* Header */}
-//       <div className="d-flex justify-content-between align-items-start mb-3">
-//         <div>
-//           <h3 className="fw-bold">{caseItem.requestNumber}</h3>
-//           <StatusBadge status={caseItem.status} />
-//           <p className="text-muted mt-1">Submitted: {caseItem.submittedDate}</p>
-//         </div>
-//       </div>
-
-//       <div className="row">
-//         {/* Main content - left side */}
-//         <div className="col-lg-8">
-//           {/* Patient Information */}
-//           <div className="card shadow-sm mb-4">
-//             <div className="card-body">
-//               <h6 className="fw-bold">Patient Information</h6>
-//               <div className="row">
-//                 <div className="col-md-6">
-//                   <p className="small mb-1"><strong>Patient Name:</strong> {caseItem.patientName}</p>
-//                   <p className="small mb-1"><strong>Device Type:</strong> {caseItem.deviceType}</p>
-//                   <p className="small mb-1"><strong>Care Center:</strong> {caseItem.careCenter}</p>
-//                 </div>
-//                 <div className="col-md-6">
-//                   <p className="small mb-1"><strong>Status:</strong> {caseItem.status}</p>
-//                   {caseItem.assignedDate && (
-//                     <p className="small mb-1"><strong>Assigned:</strong> {caseItem.assignedDate}</p>
-//                   )}
-//                   {caseItem.deliveredDate && (
-//                     <p className="small mb-0"><strong>Delivered:</strong> {caseItem.deliveredDate}</p>
-//                   )}
-//                 </div>
-//               </div>
-//             </div>
-//           </div>
-
-//           {/* Patient Notes */}
-//           <div className="card shadow-sm mb-4">
-//             <div className="card-body">
-//               <h6 className="fw-bold">Patient Notes</h6>
-//               <p className="small text-muted mb-0">{caseItem.notes}</p>
-//             </div>
-//           </div>
-
-//           {/* Measurements */}
-//           {caseItem.measurements && (
-//             <div className="card shadow-sm mb-4">
-//               <div className="card-body">
-//                 <h6 className="fw-bold">Measurements</h6>
-//                 <div className="row">
-//                   <div className="col-md-3">
-//                     <p className="small mb-0"><strong>Height:</strong> {caseItem.measurements.height} cm</p>
-//                   </div>
-//                   <div className="col-md-3">
-//                     <p className="small mb-0"><strong>Weight:</strong> {caseItem.measurements.weight} kg</p>
-//                   </div>
-//                   <div className="col-md-3">
-//                     <p className="small mb-0"><strong>Limb Length:</strong> {caseItem.measurements.limbLength} cm</p>
-//                   </div>
-//                   <div className="col-md-3">
-//                     <p className="small mb-0"><strong>Circumference:</strong> {caseItem.measurements.circumference} cm</p>
-//                   </div>
-//                 </div>
-//                 {caseItem.measurements.additionalNotes && (
-//                   <div className="mt-2">
-//                     <p className="small mb-0"><strong>Additional Notes:</strong> {caseItem.measurements.additionalNotes}</p>
-//                   </div>
-//                 )}
-//               </div>
-//             </div>
-//           )}
-//         </div>
-
-//         {/* Sidebar - right side */}
-//         <div className="col-lg-4">
-//           <div className="card shadow-sm">
-//             <div className="card-body">
-//               <h6 className="fw-bold">Actions</h6>
-              
-//               {caseItem.status === 'Approved' && (
-//                 <button
-//                   className="btn btn-primary w-100"
-//                   onClick={handleStartWork}
-//                   disabled={isProcessing}
-//                 >
-//                   {isProcessing ? 'Processing...' : 'Start Work'}
-//                 </button>
-//               )}
-
-//               {caseItem.status === 'In Progress' && (
-//                 <button
-//                   className="btn btn-success w-100"
-//                   onClick={handleDeliver}
-//                   disabled={isProcessing}
-//                 >
-//                   {isProcessing ? 'Processing...' : 'Mark as Delivered'}
-//                 </button>
-//               )}
-
-//               {caseItem.status === 'Delivered' && (
-//                 <div className="alert alert-success mb-0">
-//                   <small>✓ This case has been delivered.</small>
-//                 </div>
-//               )}
-
-//               {caseItem.status === 'Submitted' || caseItem.status === 'Under Review' || caseItem.status === 'Rejected' && (
-//                 <div className="alert alert-info mb-0">
-//                   <small>This case is not yet assigned to you.</small>
-//                 </div>
-//               )}
-//             </div>
-//           </div>
-//         </div>
-//       </div>
-//     </div>
-//   );
-// }
-
-// export default EngineerCase;
-
-
-import { useState } from 'react';
+// Import React hooks and components
+import { useState, useEffect } from 'react';
 import { useParams, Link, useNavigate } from 'react-router-dom';
 import Layout from '../../components/Layout';
-import { dummyEngineer, dummyEngineerCases } from '../../data/dummyData';
+// Import API functions
+import { getRequestById, updateRequestStatus } from '../../services/api';
 import './EngineerCase.css';
 
 function EngineerCase() {
+  // useParams gets the 'id' from URL: /engineer/case/:id
   const { id } = useParams();
   const navigate = useNavigate();
-  const caseId = parseInt(id);
-  const caseItem = dummyEngineerCases.find(c => c.id === caseId);
-  const engineer = dummyEngineer;
+  
+  // State variables
+  const [caseItem, setCaseItem] = useState(null);
+  const [user, setUser] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [submitting, setSubmitting] = useState(false);
+  const [error, setError] = useState(null);
 
-  const [isProcessing, setIsProcessing] = useState(false);
+  // Get user from localStorage
+  useEffect(() => {
+    const savedUser = localStorage.getItem('user');
+    if (savedUser) {
+      setUser(JSON.parse(savedUser));
+    }
+  }, []);
 
-  if (!caseItem) {
+  // Fetch case data when component mounts
+  useEffect(() => {
+    if (id && user) {
+      fetchCase();
+    }
+  }, [id, user]);
+
+  // Function to fetch case details from backend
+  const fetchCase = async () => {
+    try {
+      setLoading(true);
+      const data = await getRequestById(id);
+      setCaseItem(data);
+      setError(null);
+    } catch (err) {
+      setError(err.message || 'Failed to fetch case');
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  // Handle starting work on a case (Approved -> In Progress)
+  const handleStartWork = async () => {
+    setSubmitting(true);
+    try {
+      await updateRequestStatus(id, { status: 'In Progress' });
+      alert(`Case ${caseItem.request_number} is now in progress.`);
+      navigate('/engineer');
+    } catch (err) {
+      alert(err.message || 'Failed to update status');
+    } finally {
+      setSubmitting(false);
+    }
+  };
+
+  // Handle marking case as delivered (In Progress -> Delivered)
+  const handleDeliver = async () => {
+    if (window.confirm(`Mark ${caseItem.request_number} as delivered?`)) {
+      setSubmitting(true);
+      try {
+        await updateRequestStatus(id, { status: 'Delivered' });
+        alert(`Case ${caseItem.request_number} marked as delivered!`);
+        navigate('/engineer');
+      } catch (err) {
+        alert(err.message || 'Failed to update status');
+      } finally {
+        setSubmitting(false);
+      }
+    }
+  };
+
+  // Show loading state
+  if (loading) {
     return (
-      <Layout userRole="Engineer" userName={engineer.name} userEmail={engineer.email}>
-        <div className="not-found">Case not found</div>
+      <Layout userRole="Engineer" userName={user?.name || 'Engineer'} userEmail={user?.email || ''}>
+        <div className="engineer-case-page">
+          <div className="loading-text">Loading case details...</div>
+        </div>
       </Layout>
     );
   }
 
-  const handleStartWork = () => {
-    setIsProcessing(true);
-    setTimeout(() => {
-      alert(`Case ${caseItem.requestNumber} is now in progress.`);
-      setIsProcessing(false);
-      navigate('/engineer');
-    }, 500);
-  };
+  // Show error or not found state
+  if (error || !caseItem) {
+    return (
+      <Layout userRole="Engineer" userName={user?.name || 'Engineer'} userEmail={user?.email || ''}>
+        <div className="engineer-case-page">
+          <div className="not-found">Case not found</div>
+          <Link to="/engineer" className="back-link">← Back to Cases</Link>
+        </div>
+      </Layout>
+    );
+  }
 
-  const handleDeliver = () => {
-    if (window.confirm(`Mark ${caseItem.requestNumber} as delivered?`)) {
-      setIsProcessing(true);
-      setTimeout(() => {
-        alert(`Case ${caseItem.requestNumber} marked as delivered!`);
-        setIsProcessing(false);
-        navigate('/engineer');
-      }, 500);
-    }
-  };
-
+  // Main render
   return (
-    <Layout userRole="Engineer" userName={engineer.name} userEmail={engineer.email}>
+    <Layout userRole="Engineer" userName={user?.name || 'Engineer'} userEmail={user?.email || ''}>
       <div className="engineer-case-page">
+        {/* Back button */}
         <Link to="/engineer" className="back-link">← Back to Cases</Link>
 
+        {/* Case Header with Status Badge */}
         <div className="case-header">
           <div>
-            <h1>{caseItem.requestNumber}</h1>
-            <p className="case-subtitle">{caseItem.deviceType} · {caseItem.patientName}</p>
+            <h1>{caseItem.request_number}</h1>
+            <p className="case-subtitle">{caseItem.device_type} · {caseItem.patient_name}</p>
           </div>
           <span className={`status-badge ${caseItem.status.toLowerCase().replace(' ', '-')}`}>
             {caseItem.status}
@@ -231,58 +119,75 @@ function EngineerCase() {
         </div>
 
         <div className="case-grid">
+          {/* ============================================ */}
+          {/* LEFT COLUMN - Case Information */}
+          {/* ============================================ */}
           <div className="case-main">
+            {/* Production Status Steps */}
             <div className="info-card">
               <h3>Production Status</h3>
               <div className="status-steps">
-                <span className={`step ${caseItem.status === 'Approved' ? 'active' : ''}`}>Assessment</span>
-                <span className={`step ${caseItem.status === 'In Progress' ? 'active' : ''}`}>Production</span>
-                <span className={`step ${caseItem.status === 'Delivered' ? 'active' : ''}`}>Ready</span>
+                <span className={`step ${caseItem.status === 'Approved' || caseItem.status === 'In Progress' || caseItem.status === 'Delivered' ? 'active' : ''}`}>
+                  Assessment
+                </span>
+                <span className={`step ${caseItem.status === 'In Progress' || caseItem.status === 'Delivered' ? 'active' : ''}`}>
+                  Production
+                </span>
+                <span className={`step ${caseItem.status === 'Delivered' ? 'active' : ''}`}>
+                  Ready
+                </span>
               </div>
             </div>
 
+            {/* Delivery Information */}
             <div className="info-card">
               <h3>Delivery Information</h3>
-              <div className="delivery-row"><strong>Patient:</strong> {caseItem.patientName}</div>
+              <div className="delivery-row"><strong>Patient:</strong> {caseItem.patient_name}</div>
               <div className="delivery-row"><strong>Delivery Address:</strong> 14 Maple Avenue, Apt 2B, Nairobi 00100</div>
               <div className="delivery-row"><strong>Expected Delivery:</strong> May 12–15, 2025</div>
               <div className="delivery-row"><strong>Delivery Status:</strong> Awaiting dispatch</div>
             </div>
 
-            {caseItem.measurements && (
+            {/* Measurements if available */}
+            {caseItem.height && (
               <div className="info-card">
                 <h3>Measurements</h3>
                 <div className="measurements-grid">
-                  <span>Height: {caseItem.measurements.height} cm</span>
-                  <span>Weight: {caseItem.measurements.weight} kg</span>
-                  <span>Limb Length: {caseItem.measurements.limbLength} cm</span>
-                  <span>Circumference: {caseItem.measurements.circumference} cm</span>
+                  {caseItem.height && <span>Height: {caseItem.height} cm</span>}
+                  {caseItem.weight && <span>Weight: {caseItem.weight} kg</span>}
+                  {caseItem.limb_length && <span>Limb Length: {caseItem.limb_length} cm</span>}
+                  {caseItem.circumference && <span>Circumference: {caseItem.circumference} cm</span>}
                 </div>
-                {caseItem.measurements.additionalNotes && (
-                  <p className="measurement-notes"><strong>Notes:</strong> {caseItem.measurements.additionalNotes}</p>
+                {caseItem.additional_notes && (
+                  <p className="measurement-notes"><strong>Notes:</strong> {caseItem.additional_notes}</p>
                 )}
               </div>
             )}
 
+            {/* Patient Notes */}
             <div className="info-card">
               <h3>Patient Notes</h3>
-              <p className="notes-text">{caseItem.notes}</p>
+              <p className="notes-text">{caseItem.notes || 'No notes provided.'}</p>
             </div>
           </div>
 
+          {/* ============================================ */}
+          {/* RIGHT COLUMN - Actions */}
+          {/* ============================================ */}
           <div className="case-sidebar">
             <div className="action-card">
               <h3>Update Status</h3>
               
+              {/* Show different buttons based on current status */}
               {caseItem.status === 'Approved' && (
-                <button className="btn-start" onClick={handleStartWork} disabled={isProcessing}>
-                  {isProcessing ? 'Processing...' : 'Mark as Ready for Delivery'}
+                <button className="btn-start" onClick={handleStartWork} disabled={submitting}>
+                  {submitting ? 'Processing...' : 'Mark as Ready for Delivery'}
                 </button>
               )}
 
               {caseItem.status === 'In Progress' && (
-                <button className="btn-deliver" onClick={handleDeliver} disabled={isProcessing}>
-                  {isProcessing ? 'Processing...' : 'Mark as Delivered'}
+                <button className="btn-deliver" onClick={handleDeliver} disabled={submitting}>
+                  {submitting ? 'Processing...' : 'Mark as Delivered'}
                 </button>
               )}
 
@@ -290,6 +195,11 @@ function EngineerCase() {
                 <div className="delivered-message">✓ This case has been delivered.</div>
               )}
 
+              {caseItem.status === 'Submitted' || caseItem.status === 'Under Review' && (
+                <div className="pending-message">⏳ Awaiting approval from care center.</div>
+              )}
+
+              {/* Device Information */}
               <div className="device-info">
                 <h4>Device</h4>
                 <p className="device-name">Ossur Proprio Foot</p>

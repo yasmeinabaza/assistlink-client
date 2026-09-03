@@ -1,281 +1,207 @@
-// import { useState } from 'react';
-// import { useParams, Link, useNavigate } from 'react-router-dom';
-// import { dummyRequests, dummyEngineers } from '../../data/dummyData';
-// import StatusBadge from '../../components/StatusBadge';
-
-// function ReviewRequest() {
-//   const { id } = useParams();
-//   const navigate = useNavigate();
-//   const requestId = parseInt(id);
-  
-//   // Find request
-//   const request = dummyRequests.find(r => r.id === requestId);
-
-//   // State for engineer assignment
-//   const [selectedEngineer, setSelectedEngineer] = useState('');
-//   const [isProcessing, setIsProcessing] = useState(false);
-
-//   // Handle approve
-//   const handleApprove = () => {
-//     if (!selectedEngineer) {
-//       alert('Please select an engineer before approving.');
-//       return;
-//     }
-    
-//     setIsProcessing(true);
-//     // For now, before using API
-//     setTimeout(() => {
-//       alert(`Request ${request.requestNumber} approved! Assigned to: ${selectedEngineer}`);
-//       setIsProcessing(false);
-//       navigate('/care-center');
-//     }, 500);
-//   };
-
-//   // Handle reject
-//   const handleReject = () => {
-//     if (window.confirm(`Are you sure you want to reject request ${request.requestNumber}?`)) {
-//       setIsProcessing(true);
-//       setTimeout(() => {
-//         alert(`Request ${request.requestNumber} rejected.`);
-//         setIsProcessing(false);
-//         navigate('/care-center');
-//       }, 500);
-//     }
-//   };
-
-//   // If request not found
-//   if (!request) {
-//     return (
-//       <div className="container py-5 text-center">
-//         <h4>Request not found</h4>
-//         <Link to="/care-center" className="btn btn-primary">Back to Dashboard</Link>
-//       </div>
-//     );
-//   }
-
-//   return (
-//     <div className="container py-4">
-//       {/* Back button */}
-//       <Link to="/care-center" className="btn btn-outline-secondary btn-sm mb-3">
-//         ← Back to Dashboard
-//       </Link>
-
-//       {/* Header */}
-//       <div className="d-flex justify-content-between align-items-start mb-3">
-//         <div>
-//           <h3 className="fw-bold">{request.requestNumber}</h3>
-//           <StatusBadge status={request.status} />
-//           <p className="text-muted mt-1">Submitted: {request.submittedDate}</p>
-//         </div>
-//       </div>
-
-//       <div className="row">
-//         {/* Main content - left side */}
-//         <div className="col-lg-8">
-//           {/* Patient Information */}
-//           <div className="card shadow-sm mb-4">
-//             <div className="card-body">
-//               <h6 className="fw-bold">Patient Information</h6>
-//               <div className="row">
-//                 <div className="col-md-6">
-//                   <p className="small mb-1"><strong>Patient Name:</strong> {request.patientName}</p>
-//                   <p className="small mb-1"><strong>Device Type:</strong> {request.deviceType}</p>
-//                   <p className="small mb-1"><strong>Reason:</strong> {request.reason}</p>
-//                 </div>
-//                 <div className="col-md-6">
-//                   <p className="small mb-1"><strong>Care Center:</strong> {request.careCenter}</p>
-//                   <p className="small mb-1"><strong>Submitted:</strong> {request.submittedDate}</p>
-//                   <p className="small mb-0"><strong>Current Status:</strong> {request.status}</p>
-//                 </div>
-//               </div>
-//             </div>
-//           </div>
-
-//           {/* Patient Notes */}
-//           <div className="card shadow-sm mb-4">
-//             <div className="card-body">
-//               <h6 className="fw-bold">Patient Notes</h6>
-//               <p className="small text-muted mb-0">{request.notes}</p>
-//             </div>
-//           </div>
-
-//           {/* Delivery Address */}
-//           <div className="card shadow-sm">
-//             <div className="card-body">
-//               <h6 className="fw-bold">Delivery Address</h6>
-//               <p className="small text-muted mb-0">{request.deliveryAddress}</p>
-//             </div>
-//           </div>
-//         </div>
-
-//         {/* Sidebar - right side */}
-//         <div className="col-lg-4">
-//           {/* Assign Engineer */}
-//           <div className="card shadow-sm mb-3">
-//             <div className="card-body">
-//               <h6 className="fw-bold">Assign Engineer</h6>
-//               <p className="small text-muted">Select an engineer for this request.</p>
-//               <select
-//                 className="form-select mb-3"
-//                 value={selectedEngineer}
-//                 onChange={(e) => setSelectedEngineer(e.target.value)}
-//               >
-//                 <option value="">Select engineer...</option>
-//                 {dummyEngineers.map(engineer => (
-//                   <option key={engineer.id} value={engineer.name}>
-//                     {engineer.name} - {engineer.specialization}
-//                   </option>
-//                 ))}
-//               </select>
-//             </div>
-//           </div>
-
-//           {/* Actions */}
-//           <div className="card shadow-sm">
-//             <div className="card-body">
-//               <h6 className="fw-bold">Actions</h6>
-//               <button
-//                 className="btn btn-success w-100 mb-2"
-//                 onClick={handleApprove}
-//                 disabled={isProcessing || !selectedEngineer}
-//               >
-//                 {isProcessing ? 'Processing...' : 'Approve Request'}
-//               </button>
-//               <button
-//                 className="btn btn-danger w-100"
-//                 onClick={handleReject}
-//                 disabled={isProcessing}
-//               >
-//                 {isProcessing ? 'Processing...' : 'Reject Request'}
-//               </button>
-//               {!selectedEngineer && (
-//                 <p className="text-warning small mt-2 mb-0">
-//                   Please select an engineer before approving.
-//                 </p>
-//               )}
-//             </div>
-//           </div>
-//         </div>
-//       </div>
-//     </div>
-//   );
-// }
-
-// export default ReviewRequest;
-
-
-import { useState } from 'react';
+// Import React hooks and components
+import { useState, useEffect } from 'react';
 import { useParams, Link, useNavigate } from 'react-router-dom';
 import Layout from '../../components/Layout';
-import { dummyRequests, dummyCareCenterStaff, dummyEngineers } from '../../data/dummyData';
+// Import API functions
+import { getRequestById, updateRequestStatus, getEngineers } from '../../services/api';
 import './ReviewRequest.css';
 
 function ReviewRequest() {
+  // useParams gets the 'id' from URL: /care-center/request/:id
   const { id } = useParams();
   const navigate = useNavigate();
-  const requestId = parseInt(id);
-  const request = dummyRequests.find(r => r.id === requestId);
-  const staff = dummyCareCenterStaff;
-
+  
+  // State variables
+  const [request, setRequest] = useState(null);
+  const [user, setUser] = useState(null);
+  const [engineers, setEngineers] = useState([]);
   const [selectedEngineer, setSelectedEngineer] = useState('');
-  const [isProcessing, setIsProcessing] = useState(false);
+  const [loading, setLoading] = useState(true);
+  const [submitting, setSubmitting] = useState(false);
+  const [error, setError] = useState(null);
 
-  if (!request) {
-    return (
-      <Layout userRole="Care Center" userName={staff.name} userEmail="amara.osei@assistlink.com">
-        <div className="not-found">Request not found</div>
-      </Layout>
-    );
-  }
+  // Get user from localStorage
+  useEffect(() => {
+    const savedUser = localStorage.getItem('user');
+    if (savedUser) {
+      setUser(JSON.parse(savedUser));
+    }
+  }, []);
 
-  const handleApprove = () => {
+  // Fetch data when component mounts
+  useEffect(() => {
+    if (id && user) {
+      fetchData();
+    }
+  }, [id, user]);
+
+  // Function to fetch request details and engineers list
+  const fetchData = async () => {
+    try {
+      setLoading(true);
+      // Fetch both request details and engineers in parallel
+      const [requestData, engineersData] = await Promise.all([
+        getRequestById(id),
+        getEngineers()
+      ]);
+      setRequest(requestData);
+      setEngineers(engineersData);
+      setError(null);
+    } catch (err) {
+      setError(err.message || 'Failed to fetch data');
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  // Handle approve request
+  const handleApprove = async () => {
+    // Validate that an engineer is selected
     if (!selectedEngineer) {
       alert('Please select an engineer.');
       return;
     }
-    setIsProcessing(true);
-    setTimeout(() => {
-      alert(`Request ${request.requestNumber} approved! Assigned to: ${selectedEngineer}`);
-      setIsProcessing(false);
-      navigate('/care-center');
-    }, 500);
-  };
 
-  const handleReject = () => {
-    if (window.confirm(`Reject request ${request.requestNumber}?`)) {
-      setIsProcessing(true);
-      setTimeout(() => {
-        alert(`Request ${request.requestNumber} rejected.`);
-        setIsProcessing(false);
-        navigate('/care-center');
-      }, 500);
+    setSubmitting(true);
+    try {
+      // Send status update to backend
+      await updateRequestStatus(id, {
+        status: 'Approved',
+        engineerId: parseInt(selectedEngineer)
+      });
+      alert(`Request ${request.request_number} approved!`);
+      navigate('/care-center'); // Redirect to dashboard
+    } catch (err) {
+      alert(err.message || 'Failed to approve request');
+    } finally {
+      setSubmitting(false);
     }
   };
 
+  // Handle reject request
+  const handleReject = async () => {
+    // Confirm with user before rejecting
+    if (window.confirm(`Reject request ${request?.request_number}?`)) {
+      setSubmitting(true);
+      try {
+        await updateRequestStatus(id, { status: 'Rejected' });
+        alert(`Request ${request.request_number} rejected.`);
+        navigate('/care-center');
+      } catch (err) {
+        alert(err.message || 'Failed to reject request');
+      } finally {
+        setSubmitting(false);
+      }
+    }
+  };
+
+  // Show loading state
+  if (loading) {
+    return (
+      <Layout userRole="Care Center" userName={user?.name || 'Staff'} userEmail={user?.email || ''}>
+        <div className="review-request-page">
+          <div className="loading-text">Loading...</div>
+        </div>
+      </Layout>
+    );
+  }
+
+  // Show error state
+  if (error || !request) {
+    return (
+      <Layout userRole="Care Center" userName={user?.name || 'Staff'} userEmail={user?.email || ''}>
+        <div className="review-request-page">
+          <div className="not-found">Request not found</div>
+          <Link to="/care-center" className="back-link">← Back to Dashboard</Link>
+        </div>
+      </Layout>
+    );
+  }
+
+  // Main render
   return (
-    <Layout userRole="Care Center" userName={staff.name} userEmail="amara.osei@assistlink.com">
+    <Layout userRole="Care Center" userName={user?.name || 'Staff'} userEmail={user?.email || ''}>
       <div className="review-request-page">
+        {/* Back button */}
         <Link to="/care-center" className="back-link">← Back</Link>
 
+        {/* Request Header with Status Badge */}
         <div className="review-header">
-          <h1>{request.requestNumber}</h1>
+          <h1>{request.request_number}</h1>
           <span className={`status-badge ${request.status.toLowerCase().replace(' ', '-')}`}>
             {request.status}
           </span>
         </div>
-        <p className="review-submitted">Submitted {request.submittedDate}</p>
+        <p className="review-submitted">Submitted {request.submitted_date}</p>
 
         <div className="review-grid">
+          {/* ============================================ */}
+          {/* LEFT COLUMN - Request Information */}
+          {/* ============================================ */}
           <div className="review-main">
+            {/* Patient Information */}
             <div className="info-card">
               <h3>Patient Information</h3>
-              <div className="info-row"><strong>Patient Name:</strong> {request.patientName}</div>
-              <div className="info-row"><strong>Device Type:</strong> {request.deviceType}</div>
+              <div className="info-row"><strong>Patient Name:</strong> {request.patient_name}</div>
+              <div className="info-row"><strong>Email:</strong> {request.patient_email || 'N/A'}</div>
+              <div className="info-row"><strong>Phone:</strong> {request.patient_phone || 'N/A'}</div>
+              <div className="info-row"><strong>Device Type:</strong> {request.device_type}</div>
               <div className="info-row"><strong>Reason:</strong> {request.reason}</div>
-              <div className="info-row"><strong>Care Center:</strong> {request.careCenter}</div>
+              <div className="info-row"><strong>Affected Area:</strong> {request.affected_area || 'Not specified'}</div>
             </div>
 
+            {/* Patient Notes */}
             <div className="info-card">
               <h3>Patient Notes</h3>
-              <p className="notes-text">{request.notes}</p>
+              <p className="notes-text">{request.notes || 'No notes provided.'}</p>
             </div>
 
+            {/* Delivery Address */}
             <div className="info-card">
               <h3>Delivery Address</h3>
-              <p className="address-text">{request.deliveryAddress}</p>
+              <p className="address-text">{request.delivery_address || '14 Maple Avenue, Apt 2B, Nairobi 00100'}</p>
             </div>
           </div>
 
+          {/* ============================================ */}
+          {/* RIGHT COLUMN - Actions */}
+          {/* ============================================ */}
           <div className="review-sidebar">
             <div className="action-card">
               <h3>Assign Engineer</h3>
+              {/* Dropdown to select engineer */}
               <select
                 className="engineer-select"
                 value={selectedEngineer}
                 onChange={(e) => setSelectedEngineer(e.target.value)}
               >
                 <option value="">Select engineer...</option>
-                {dummyEngineers.map(e => (
-                  <option key={e.id} value={e.name}>{e.name} - {e.specialization}</option>
+                {engineers.map(e => (
+                  <option key={e.id} value={e.id}>
+                    {e.name} - {e.specialization}
+                  </option>
                 ))}
               </select>
 
+              {/* Action Buttons */}
               <div className="action-buttons">
                 <button 
                   className="btn-approve"
                   onClick={handleApprove}
-                  disabled={isProcessing || !selectedEngineer}
+                  disabled={submitting || !selectedEngineer}
                 >
-                  {isProcessing ? 'Processing...' : 'Approve Request'}
+                  {submitting ? 'Processing...' : 'Approve Request'}
                 </button>
                 <button 
                   className="btn-reject"
                   onClick={handleReject}
-                  disabled={isProcessing}
+                  disabled={submitting}
                 >
-                  {isProcessing ? 'Processing...' : 'Reject Request'}
+                  {submitting ? 'Processing...' : 'Reject Request'}
                 </button>
               </div>
+              
+              {/* Warning if no engineer selected */}
               {!selectedEngineer && (
                 <p className="warning-text">Please select an engineer before approving.</p>
               )}
