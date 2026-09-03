@@ -10,9 +10,8 @@ const api = axios.create({
   },
 });
 
-// ============================================
+////////////////////////////////////////////////////////
 // AUTH SERVICES
-// ============================================
 
 export const signup = async (userData) => {
   try {
@@ -32,20 +31,19 @@ export const login = async (credentials) => {
   }
 };
 
-// ============================================
-// USER SERVICES - LIKE COURSE DEMO
-// ============================================
+////////////////////////////////////////////////////////
+// USER SERVICES
 
-// GET all users - sends x-role header (like course demo)
+// GET all users - sends x-role header
 export const getUsers = async () => {
   try {
-    // Get user from localStorage (like course demo)
+    // Get user from localStorage
     const savedUser = localStorage.getItem('user');
     const userData = savedUser ? JSON.parse(savedUser) : {};
     
     const response = await api.get('/users', {
       headers: {
-        'x-role': userData.role || 'user'  // ← Like course demo
+        'x-role': userData.role || 'user'
       }
     });
     return response.data;
@@ -74,7 +72,7 @@ export const getUserById = async (id) => {
   }
 };
 
-// DELETE user - sends x-role header (like course demo)
+// DELETE user - sends x-role header
 export const deleteUser = async (id) => {
   try {
     const savedUser = localStorage.getItem('user');
@@ -82,7 +80,7 @@ export const deleteUser = async (id) => {
     
     const response = await api.delete(`/users/${id}`, {
       headers: {
-        'x-role': userData.role || 'user'  // ← Like course demo
+        'x-role': userData.role || 'user' 
       }
     });
     return response.data;
@@ -91,7 +89,7 @@ export const deleteUser = async (id) => {
   }
 };
 
-// UPDATE user - sends x-role header (like course demo)
+// UPDATE user - sends x-role header
 export const updateUser = async (id, userData) => {
   try {
     const savedUser = localStorage.getItem('user');
@@ -99,7 +97,7 @@ export const updateUser = async (id, userData) => {
     
     const response = await api.put(`/users/${id}`, userData, {
       headers: {
-        'x-role': adminData.role || 'user'  // ← Like course demo
+        'x-role': adminData.role || 'user' 
       }
     });
     return response.data;
@@ -108,9 +106,8 @@ export const updateUser = async (id, userData) => {
   }
 };
 
-// ============================================
+////////////////////////////////////////////////////////
 // REQUEST SERVICES
-// ============================================
 
 export const getRequests = async () => {
   try {
@@ -183,9 +180,8 @@ export const addMeasurements = async (id, measurements) => {
   }
 };
 
-// ============================================
+////////////////////////////////////////////////////////
 // CARE CENTER SERVICES
-// ============================================
 
 export const getCareCenters = async () => {
   try {
@@ -230,9 +226,8 @@ export const deleteCareCenter = async (id) => {
   }
 };
 
-// ============================================
+////////////////////////////////////////////////////////
 // ENGINEER SERVICES
-// ============================================
 
 export const getEngineers = async () => {
   try {
@@ -295,9 +290,8 @@ export const deleteEngineer = async (id) => {
 };
 
 
-// ============================================
-// ACCESSGUDID API - SIMPLEST VERSION
-// ============================================
+////////////////////////////////////////////////////////
+// ACCESSGUDID API
 
 export const searchDevices = async (searchTerm) => {
   try {
