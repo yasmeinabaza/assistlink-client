@@ -10,11 +10,10 @@ const api = axios.create({
   },
 });
 
-//////////////////////////////////////////////////
+// ============================================
 // AUTH SERVICES
+// ============================================
 
-
-// Signup
 export const signup = async (userData) => {
   try {
     const response = await api.post('/auth/signup', userData);
@@ -24,7 +23,6 @@ export const signup = async (userData) => {
   }
 };
 
-// Login
 export const login = async (credentials) => {
   try {
     const response = await api.post('/auth/login', credentials);
@@ -34,11 +32,10 @@ export const login = async (credentials) => {
   }
 };
 
-/////////////////////////////////////////////////////
+// ============================================
 // USER SERVICES
+// ============================================
 
-
-// Get all users (admin only)
 export const getUsers = async () => {
   try {
     const response = await api.get('/users');
@@ -48,7 +45,6 @@ export const getUsers = async () => {
   }
 };
 
-// Get patients
 export const getPatients = async () => {
   try {
     const response = await api.get('/users/patients');
@@ -58,7 +54,6 @@ export const getPatients = async () => {
   }
 };
 
-// Get user by ID
 export const getUserById = async (id) => {
   try {
     const response = await api.get(`/users/${id}`);
@@ -68,7 +63,6 @@ export const getUserById = async (id) => {
   }
 };
 
-// Delete user (admin only)
 export const deleteUser = async (id) => {
   try {
     const response = await api.delete(`/users/${id}`);
@@ -78,7 +72,6 @@ export const deleteUser = async (id) => {
   }
 };
 
-// Update user (admin only)
 export const updateUser = async (id, userData) => {
   try {
     const response = await api.put(`/users/${id}`, userData);
@@ -88,11 +81,10 @@ export const updateUser = async (id, userData) => {
   }
 };
 
-/////////////////////////////////////////////////////
+// ============================================
 // REQUEST SERVICES
+// ============================================
 
-
-// Get all requests
 export const getRequests = async () => {
   try {
     const response = await api.get('/requests');
@@ -102,7 +94,6 @@ export const getRequests = async () => {
   }
 };
 
-// Get requests by patient ID
 export const getRequestsByPatient = async (patientId) => {
   try {
     const response = await api.get(`/requests/patient/${patientId}`);
@@ -112,7 +103,18 @@ export const getRequestsByPatient = async (patientId) => {
   }
 };
 
-// Get request by ID
+// ============================================
+//Get requests by engineer
+// ============================================
+export const getRequestsByEngineer = async (engineerId) => {
+  try {
+    const response = await api.get(`/requests/engineer/${engineerId}`);
+    return response.data;
+  } catch (error) {
+    throw error.response?.data || { message: 'Network error' };
+  }
+};
+
 export const getRequestById = async (id) => {
   try {
     const response = await api.get(`/requests/${id}`);
@@ -122,7 +124,6 @@ export const getRequestById = async (id) => {
   }
 };
 
-// Create request
 export const createRequest = async (requestData) => {
   try {
     const response = await api.post('/requests', requestData);
@@ -132,7 +133,6 @@ export const createRequest = async (requestData) => {
   }
 };
 
-// Update request status (care center only)
 export const updateRequestStatus = async (id, statusData) => {
   try {
     const response = await api.put(`/requests/${id}/status`, statusData);
@@ -142,7 +142,6 @@ export const updateRequestStatus = async (id, statusData) => {
   }
 };
 
-// Add measurements to request
 export const addMeasurements = async (id, measurements) => {
   try {
     const response = await api.post(`/requests/${id}/measurements`, measurements);
@@ -152,10 +151,9 @@ export const addMeasurements = async (id, measurements) => {
   }
 };
 
-/////////////////////////////////////////////////////
+////////////////////////////////////////////////////////
 // CARE CENTER SERVICES
 
-// Get all care centers
 export const getCareCenters = async () => {
   try {
     const response = await api.get('/carecenters');
@@ -165,10 +163,29 @@ export const getCareCenters = async () => {
   }
 };
 
-///////////////////////////////////////////////////
+//Create care center
+export const createCareCenter = async (centerData) => {
+  try {
+    const response = await api.post('/carecenters', centerData);
+    return response.data;
+  } catch (error) {
+    throw error.response?.data || { message: 'Network error' };
+  }
+};
+
+//Delete care center
+export const deleteCareCenter = async (id) => {
+  try {
+    const response = await api.delete(`/carecenters/${id}`);
+    return response.data;
+  } catch (error) {
+    throw error.response?.data || { message: 'Network error' };
+  }
+};
+
+//////////////////////////////////////////////////////
 // ENGINEER SERVICES
 
-// Get all engineers
 export const getEngineers = async () => {
   try {
     const response = await api.get('/engineers');
@@ -177,3 +194,35 @@ export const getEngineers = async () => {
     throw error.response?.data || { message: 'Network error' };
   }
 };
+
+//Create engineer
+export const createEngineer = async (engineerData) => {
+  try {
+    const response = await api.post('/engineers', engineerData);
+    return response.data;
+  } catch (error) {
+    throw error.response?.data || { message: 'Network error' };
+  }
+};
+
+//Update engineer
+export const updateEngineer = async (id, engineerData) => {
+  try {
+    const response = await api.put(`/engineers/${id}`, engineerData);
+    return response.data;
+  } catch (error) {
+    throw error.response?.data || { message: 'Network error' };
+  }
+};
+
+
+//Delete engineer
+export const deleteEngineer = async (id) => {
+  try {
+    const response = await api.delete(`/engineers/${id}`);
+    return response.data;
+  } catch (error) {
+    throw error.response?.data || { message: 'Network error' };
+  }
+};
+

@@ -37,7 +37,7 @@ function App() {
       {/* <Navbar /> */}
       <Routes>
         {/* Public */}
-         <Route path="/" element={<><Navbar /> <Home /></> } />
+        <Route path="/" element={<><Navbar /> <Home /></> } />
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
 
