@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import Navbar from './Navbar';
+import MobileNavbar from './MobileNavbar';  
 import SideNav from './SideNav';
 import './Layout.css';
 
@@ -10,7 +10,7 @@ function Layout({ children, userRole, userName, userEmail, onTabChange }) {
 
   return (
     <div className="app-layout">
-      {/* Desktop Sidebar - ONLY on desktop */}
+      {/* Desktop Sidebar */}
       <aside className="desktop-sidebar">
         <SideNav
           userRole={normalizedRole}
@@ -21,16 +21,16 @@ function Layout({ children, userRole, userName, userEmail, onTabChange }) {
         />
       </aside>
 
-      {/* Mobile Navbar - ONLY on mobile */}
-      <Navbar onMenuClick={() => setShowMobileNav(true)} />
+      {/* Mobile Navbar */}
+      <MobileNavbar onMenuClick={() => setShowMobileNav(true)} />
 
-      {/* Mobile Sidebar Overlay - ONLY on mobile */}
+      {/* Mobile Sidebar Overlay */}
       <div
         className={`mobile-sidebar-overlay ${showMobileNav ? 'show' : ''}`}
         onClick={() => setShowMobileNav(false)}
       />
 
-      {/* Mobile Sidebar - ONLY on mobile */}
+      {/* Mobile Sidebar */}
       <aside className={`mobile-sidebar ${showMobileNav ? 'open' : ''}`}>
         <SideNav
           userRole={normalizedRole}

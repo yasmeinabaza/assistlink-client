@@ -1,21 +1,21 @@
 import { Link } from 'react-router-dom';
 import './Navbar.css';
 
-function Navbar({ onMenuClick }) {
+function Navbar() {
   return (
-    <header className="mobile-navbar">
-      <button
-        className="menu-button"
-        onClick={onMenuClick}
-        aria-label="Open navigation"
-      >
-        ☰
-      </button>
-      <Link to="/" className="mobile-brand">
-        <span className="mobile-brand-mark">A</span>
-        AssistLink
-      </Link>
-    </header>
+    <nav className="home-navbar">
+      <div className="navbar-container">
+        <Link to="/" className="navbar-brand">
+          <span className="brand-mark">A</span>
+          AssistLink
+        </Link>
+
+        <div className="navbar-actions">
+          <Link to="/login" className="nav-link-login">Login</Link>
+          <Link to="/register" className="nav-link-register">Create Account</Link>
+        </div>
+      </div>
+    </nav>
   );
 }
 
