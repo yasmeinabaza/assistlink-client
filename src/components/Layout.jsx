@@ -10,6 +10,7 @@ function Layout({ children, userRole, userName, userEmail, onTabChange }) {
 
   return (
     <div className="app-layout">
+      {/* Desktop Sidebar - ONLY on desktop */}
       <aside className="desktop-sidebar">
         <SideNav
           userRole={normalizedRole}
@@ -20,13 +21,16 @@ function Layout({ children, userRole, userName, userEmail, onTabChange }) {
         />
       </aside>
 
+      {/* Mobile Navbar - ONLY on mobile */}
       <Navbar onMenuClick={() => setShowMobileNav(true)} />
 
+      {/* Mobile Sidebar Overlay - ONLY on mobile */}
       <div
         className={`mobile-sidebar-overlay ${showMobileNav ? 'show' : ''}`}
         onClick={() => setShowMobileNav(false)}
       />
 
+      {/* Mobile Sidebar - ONLY on mobile */}
       <aside className={`mobile-sidebar ${showMobileNav ? 'open' : ''}`}>
         <SideNav
           userRole={normalizedRole}
@@ -37,6 +41,7 @@ function Layout({ children, userRole, userName, userEmail, onTabChange }) {
         />
       </aside>
 
+      {/* Main Content */}
       <main className="app-content">
         {children}
       </main>

@@ -74,7 +74,7 @@ function Register() {
         careCenterId: parseInt(formData.careCenterId)
       };
 
-      const data = await signup(userData);
+      await signup(userData);
       alert('Account created successfully! Please login.');
       navigate('/login');
     } catch (error) {

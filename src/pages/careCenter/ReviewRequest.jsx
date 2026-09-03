@@ -3,7 +3,7 @@ import { useState, useEffect } from 'react';
 import { useParams, Link, useNavigate } from 'react-router-dom';
 import Layout from '../../components/Layout';
 // Import API functions
-import { getRequestById, updateRequestStatus, getEngineers } from '../../services/api';
+import { getRequestById, updateRequestStatus, getEngineers, searchDevices } from '../../services/api';
 import './ReviewRequest.css';
 
 function ReviewRequest() {
@@ -19,6 +19,13 @@ function ReviewRequest() {
   const [loading, setLoading] = useState(true);
   const [submitting, setSubmitting] = useState(false);
   const [error, setError] = useState(null);
+
+  //API variables
+  const [searchTerm, setSearchTerm] = useState('');
+  const [searchResults, setSearchResults] = useState([]);
+  const [isSearching, setIsSearching] = useState(false);
+  const [searchError, setSearchError] = useState(null);
+  const [selectedDevice, setSelectedDevice] = useState(null);
 
   // Get user from localStorage
   useEffect(() => {
@@ -54,29 +61,59 @@ function ReviewRequest() {
     }
   };
 
-  // Handle approve request
-  const handleApprove = async () => {
-    // Validate that an engineer is selected
-    if (!selectedEngineer) {
-      alert('Please select an engineer.');
+  // Function to search for devices in Third party API
+  const handleSearch = async () => {
+    if (!searchTerm.trim()) {
+      alert('Please enter a search term.');
       return;
     }
 
-    setSubmitting(true);
+    setIsSearching(true);
+    setSearchError(null);
+    setSearchResults([]);
+
     try {
-      // Send status update to backend
-      await updateRequestStatus(id, {
-        status: 'Approved',
-        engineerId: parseInt(selectedEngineer)
-      });
-      alert(`Request ${request.request_number} approved!`);
-      navigate('/care-center'); // Redirect to dashboard
+      const results = await searchDevices(searchTerm);
+      setSearchResults(results);
+      if (results.length === 0) {
+        setSearchError('No devices found matching your search.');
+      }
     } catch (err) {
-      alert(err.message || 'Failed to approve request');
+      setSearchError(err.message || 'Failed to search devices.');
     } finally {
-      setSubmitting(false);
+      setIsSearching(false);
     }
   };
+
+  // Function to select a device
+  const handleSelectDevice = (device) => {
+    setSelectedDevice(device);
+  };
+
+    // Handle approve request
+    const handleApprove = async () => {
+      // Validate that an engineer is selected
+      if (!selectedEngineer) {
+        alert('Please select an engineer.');
+        return;
+      }
+
+      setSubmitting(true);
+      try {
+        // Send status update to backend
+        await updateRequestStatus(id, {
+          status: 'Approved',
+          engineerId: parseInt(selectedEngineer)
+        });
+        alert(`Request ${request.request_number} approved!`);
+        navigate('/care-center'); // Redirect to dashboard
+      } catch (err) {
+        alert(err.message || 'Failed to approve request');
+      } finally {
+        setSubmitting(false);
+      }
+    };
+
 
   // Handle reject request
   const handleReject = async () => {
@@ -167,6 +204,81 @@ function ReviewRequest() {
           {/* RIGHT COLUMN - Actions */}
           {/* ============================================ */}
           <div className="review-sidebar">
+              {/*Device Search Section*/}
+            <div className="action-card">
+              <h3>Select Device</h3>
+              <p className="search-hint">Search the AccessGUDID database to identify an appropriate device.</p>
+    
+              {/* Search Bar */}
+              <div className="search-bar">
+                <input
+                  type="text"
+                  placeholder="Search for a device..."
+                  value={searchTerm}
+                  onChange={(e) => setSearchTerm(e.target.value)}
+                  onKeyPress={(e) => e.key === 'Enter' && handleSearch()}
+                />
+                <button onClick={handleSearch} disabled={isSearching}>
+                  {isSearching ? 'Searching...' : 'Search'}
+                </button>
+              </div>
+
+              {/* Loading State */}
+              {isSearching && (
+                <div className="search-status loading">Searching for devices...</div>
+              )}
+
+              {/* Error State */}
+              {searchError && !isSearching && (
+                <div className="search-status error">{searchError}</div>
+              )}
+
+              {/* Empty State */}
+              {!isSearching && !searchError && searchTerm && searchResults.length === 0 && (
+                <div className="search-status empty">No devices found. Try a different search term.</div>
+              )}
+
+              {/* Results List */}
+              {!isSearching && searchResults.length > 0 && (
+                <div className="search-results">
+                  <p className="results-count">{searchResults.length} devices found</p>
+                  {searchResults.map((device) => (
+                    <div
+                      key={device.deviceId}
+                      className={`device-result ${selectedDevice?.deviceId === device.deviceId ? 'selected' : ''}`}
+                      onClick={() => handleSelectDevice(device)}
+                    >
+                      <div className="device-header">
+                        <span className="device-name">{device.brandName || 'Unknown Device'}</span>
+                        <span className="device-company">{device.companyName || ''}</span>
+                      </div>
+                      <div className="device-details">
+                        {device.gmdnTerms?.gmdn?.map(g => (
+                          <span key={g.gmdnCode} className="device-gmdn">{g.gmdnPTName}</span>
+                       ))}
+                      </div>
+                      <div className="device-meta">
+                        <span>ID: {device.deviceId}</span>
+                        <span>Model: {device.versionModelNumber || 'N/A'}</span>
+                      </div>
+                      {selectedDevice?.deviceId === device.deviceId && (
+                        <span className="selected-badge">✓ Selected</span>
+                      )}
+                    </div>
+                  ))}
+                </div>
+              )}
+
+              {/* Selected Device Info */}
+              {selectedDevice && (
+                <div className="selected-device-info">
+                  <span><strong>Selected:</strong> {selectedDevice.brandName}</span>
+                  <button className="btn-clear-selection" onClick={() => setSelectedDevice(null)}>
+                    Clear
+                  </button>
+                </div>
+              )}
+            </div>
             <div className="action-card">
               <h3>Assign Engineer</h3>
               {/* Dropdown to select engineer */}

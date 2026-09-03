@@ -33,18 +33,28 @@ export const login = async (credentials) => {
 };
 
 // ============================================
-// USER SERVICES
+// USER SERVICES - LIKE COURSE DEMO
 // ============================================
 
+// GET all users - sends x-role header (like course demo)
 export const getUsers = async () => {
   try {
-    const response = await api.get('/users');
+    // Get user from localStorage (like course demo)
+    const savedUser = localStorage.getItem('user');
+    const userData = savedUser ? JSON.parse(savedUser) : {};
+    
+    const response = await api.get('/users', {
+      headers: {
+        'x-role': userData.role || 'user'  // ← Like course demo
+      }
+    });
     return response.data;
   } catch (error) {
     throw error.response?.data || { message: 'Network error' };
   }
 };
 
+// GET patients
 export const getPatients = async () => {
   try {
     const response = await api.get('/users/patients');
@@ -54,6 +64,7 @@ export const getPatients = async () => {
   }
 };
 
+// GET user by ID
 export const getUserById = async (id) => {
   try {
     const response = await api.get(`/users/${id}`);
@@ -63,18 +74,34 @@ export const getUserById = async (id) => {
   }
 };
 
+// DELETE user - sends x-role header (like course demo)
 export const deleteUser = async (id) => {
   try {
-    const response = await api.delete(`/users/${id}`);
+    const savedUser = localStorage.getItem('user');
+    const userData = savedUser ? JSON.parse(savedUser) : {};
+    
+    const response = await api.delete(`/users/${id}`, {
+      headers: {
+        'x-role': userData.role || 'user'  // ← Like course demo
+      }
+    });
     return response.data;
   } catch (error) {
     throw error.response?.data || { message: 'Network error' };
   }
 };
 
+// UPDATE user - sends x-role header (like course demo)
 export const updateUser = async (id, userData) => {
   try {
-    const response = await api.put(`/users/${id}`, userData);
+    const savedUser = localStorage.getItem('user');
+    const adminData = savedUser ? JSON.parse(savedUser) : {};
+    
+    const response = await api.put(`/users/${id}`, userData, {
+      headers: {
+        'x-role': adminData.role || 'user'  // ← Like course demo
+      }
+    });
     return response.data;
   } catch (error) {
     throw error.response?.data || { message: 'Network error' };
@@ -103,9 +130,6 @@ export const getRequestsByPatient = async (patientId) => {
   }
 };
 
-// ============================================
-//Get requests by engineer
-// ============================================
 export const getRequestsByEngineer = async (engineerId) => {
   try {
     const response = await api.get(`/requests/engineer/${engineerId}`);
@@ -133,9 +157,17 @@ export const createRequest = async (requestData) => {
   }
 };
 
+// UPDATE request status - sends x-role header (like course demo)
 export const updateRequestStatus = async (id, statusData) => {
   try {
-    const response = await api.put(`/requests/${id}/status`, statusData);
+    const savedUser = localStorage.getItem('user');
+    const userData = savedUser ? JSON.parse(savedUser) : {};
+    
+    const response = await api.put(`/requests/${id}/status`, statusData, {
+      headers: {
+        'x-role': userData.role || 'user'  // ← Like course demo
+      }
+    });
     return response.data;
   } catch (error) {
     throw error.response?.data || { message: 'Network error' };
@@ -151,8 +183,9 @@ export const addMeasurements = async (id, measurements) => {
   }
 };
 
-////////////////////////////////////////////////////////
+// ============================================
 // CARE CENTER SERVICES
+// ============================================
 
 export const getCareCenters = async () => {
   try {
@@ -163,28 +196,43 @@ export const getCareCenters = async () => {
   }
 };
 
-//Create care center
+// CREATE care center - sends x-role header (like course demo)
 export const createCareCenter = async (centerData) => {
   try {
-    const response = await api.post('/carecenters', centerData);
+    const savedUser = localStorage.getItem('user');
+    const userData = savedUser ? JSON.parse(savedUser) : {};
+    
+    const response = await api.post('/carecenters', centerData, {
+      headers: {
+        'x-role': userData.role || 'user'  // ← Like course demo
+      }
+    });
     return response.data;
   } catch (error) {
     throw error.response?.data || { message: 'Network error' };
   }
 };
 
-//Delete care center
+// DELETE care center - sends x-role header (like course demo)
 export const deleteCareCenter = async (id) => {
   try {
-    const response = await api.delete(`/carecenters/${id}`);
+    const savedUser = localStorage.getItem('user');
+    const userData = savedUser ? JSON.parse(savedUser) : {};
+    
+    const response = await api.delete(`/carecenters/${id}`, {
+      headers: {
+        'x-role': userData.role || 'user'  // ← Like course demo
+      }
+    });
     return response.data;
   } catch (error) {
     throw error.response?.data || { message: 'Network error' };
   }
 };
 
-//////////////////////////////////////////////////////
+// ============================================
 // ENGINEER SERVICES
+// ============================================
 
 export const getEngineers = async () => {
   try {
@@ -195,34 +243,88 @@ export const getEngineers = async () => {
   }
 };
 
-//Create engineer
+// CREATE engineer - sends x-role header (like course demo)
 export const createEngineer = async (engineerData) => {
   try {
-    const response = await api.post('/engineers', engineerData);
+    const savedUser = localStorage.getItem('user');
+    const userData = savedUser ? JSON.parse(savedUser) : {};
+    
+    const response = await api.post('/engineers', engineerData, {
+      headers: {
+        'x-role': userData.role || 'user'  // ← Like course demo
+      }
+    });
     return response.data;
   } catch (error) {
     throw error.response?.data || { message: 'Network error' };
   }
 };
 
-//Update engineer
+// UPDATE engineer - sends x-role header (like course demo)
 export const updateEngineer = async (id, engineerData) => {
   try {
-    const response = await api.put(`/engineers/${id}`, engineerData);
+    const savedUser = localStorage.getItem('user');
+    const userData = savedUser ? JSON.parse(savedUser) : {};
+    
+    const response = await api.put(`/engineers/${id}`, engineerData, {
+      headers: {
+        'x-role': userData.role || 'user'  // ← Like course demo
+      }
+    });
     return response.data;
   } catch (error) {
     throw error.response?.data || { message: 'Network error' };
   }
 };
 
-
-//Delete engineer
+// DELETE engineer - sends x-role header (like course demo)
 export const deleteEngineer = async (id) => {
   try {
-    const response = await api.delete(`/engineers/${id}`);
+    const savedUser = localStorage.getItem('user');
+    const userData = savedUser ? JSON.parse(savedUser) : {};
+    
+    const response = await api.delete(`/engineers/${id}`, {
+      headers: {
+        'x-role': userData.role || 'user'  // ← Like course demo
+      }
+    });
     return response.data;
   } catch (error) {
     throw error.response?.data || { message: 'Network error' };
   }
 };
 
+
+// ============================================
+// ACCESSGUDID API - SIMPLEST VERSION
+// ============================================
+
+export const searchDevices = async (searchTerm) => {
+  try {
+    // If no search term, return empty array or some default results
+    if (!searchTerm || searchTerm.trim() === '') {
+      return [];
+    }
+
+    // Fetch a fixed number of devices (limit=50 for reasonable results)
+    const response = await axios.get(
+      `https://accessgudid.nlm.nih.gov/api/v3/devices/implantable/list.json?limit=50`
+    );
+    
+    const devices = response.data.devices || [];
+    const search = searchTerm.toLowerCase().trim();
+    
+    // Simple filter on brand name and company name
+    const filtered = devices.filter(device => {
+      const brand = (device.brandName || '').toLowerCase();
+      const company = (device.companyName || '').toLowerCase();
+      return brand.includes(search) || company.includes(search);
+    });
+    
+    return filtered.slice(0, 10); // Return max 10 results
+    
+  } catch (error) {
+    console.error('AccessGUDID API error:', error);
+    return []; // Return empty array on error
+  }
+};
