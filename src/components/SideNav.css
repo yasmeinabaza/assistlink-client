@@ -1,3 +1,7 @@
+/* ============================================
+   SIDE NAV
+   ============================================ */
+
 .side-nav {
     width: 230px;
     height: 100vh;
@@ -6,7 +10,9 @@
     background-color: #ffffff;
     border-right: 1px solid #e5e7eb;
     flex-shrink: 0;
+    overflow-y: auto;
 }
+
 
 /* HEADER */
 .side-nav-header {

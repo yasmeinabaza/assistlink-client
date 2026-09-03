@@ -165,3 +165,183 @@
         grid-template-columns: 1fr;
     }
 }
+
+
+   /* DEVICE SEARCH STYLES */
+
+.search-hint {
+    font-size: 13px;
+    color: #6b7280;
+    margin-bottom: 12px;
+}
+
+.search-bar {
+    display: flex;
+    gap: 8px;
+    margin-bottom: 12px;
+}
+
+.search-bar input {
+    flex: 1;
+    padding: 8px 12px;
+    border: 1px solid #d1d5db;
+    border-radius: 6px;
+    font-size: 14px;
+}
+
+.search-bar input:focus {
+    outline: none;
+    border-color: #245f92;
+}
+
+.search-bar button {
+    padding: 8px 16px;
+    background: #245f92;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background 0.2s;
+    white-space: nowrap;
+}
+
+.search-bar button:hover:not(:disabled) {
+    background: #1a4a73;
+}
+
+.search-bar button:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
+.search-status {
+    padding: 8px 12px;
+    border-radius: 6px;
+    margin-bottom: 12px;
+    font-size: 13px;
+}
+
+.search-status.loading {
+    background: #f3f4f6;
+    color: #4b5563;
+}
+
+.search-status.error {
+    background: #fee2e2;
+    color: #991b1b;
+}
+
+.search-status.empty {
+    background: #f3f4f6;
+    color: #6b7280;
+}
+
+.search-results {
+    max-height: 260px;
+    overflow-y: auto;
+    margin-top: 4px;
+}
+
+.results-count {
+    font-size: 13px;
+    color: #4b5563;
+    margin-bottom: 8px;
+}
+
+.device-result {
+    padding: 10px 12px;
+    border: 1px solid #e5e7eb;
+    border-radius: 6px;
+    margin-bottom: 6px;
+    cursor: pointer;
+    transition: background-color 0.2s;
+    position: relative;
+}
+
+.device-result:hover {
+    background: #f9fafb;
+}
+
+.device-result.selected {
+    border-color: #245f92;
+    background: #f0f7ff;
+}
+
+.device-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 4px;
+}
+
+.device-name {
+    font-weight: 600;
+    font-size: 14px;
+    color: #1f2937;
+}
+
+.device-company {
+    font-size: 12px;
+    color: #6b7280;
+}
+
+.device-details {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 4px;
+    margin: 4px 0;
+}
+
+.device-gmdn {
+    font-size: 11px;
+    background: #e5e7eb;
+    padding: 2px 10px;
+    border-radius: 12px;
+    color: #374151;
+}
+
+.device-meta {
+    display: flex;
+    gap: 12px;
+    font-size: 11px;
+    color: #6b7280;
+}
+
+.selected-badge {
+    position: absolute;
+    top: 6px;
+    right: 8px;
+    background: #10b981;
+    color: white;
+    font-size: 11px;
+    padding: 2px 10px;
+    border-radius: 12px;
+}
+
+.selected-device-info {
+    margin-top: 12px;
+    padding: 8px 12px;
+    background: #f0fdf4;
+    border: 1px solid #86efac;
+    border-radius: 6px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 14px;
+}
+
+.btn-clear-selection {
+    background: none;
+    border: none;
+    color: #dc2626;
+    cursor: pointer;
+    font-size: 13px;
+    font-weight: 500;
+}
+
+.btn-clear-selection:hover {
+    text-decoration: underline;
+}
