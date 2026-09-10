@@ -20,7 +20,7 @@ function ReviewRequest() {
   const [submitting, setSubmitting] = useState(false);
   const [error, setError] = useState(null);
 
-  //API variables
+  // API variables
   const [searchTerm, setSearchTerm] = useState('');
   const [searchResults, setSearchResults] = useState([]);
   const [isSearching, setIsSearching] = useState(false);
@@ -90,30 +90,29 @@ function ReviewRequest() {
     setSelectedDevice(device);
   };
 
-    // Handle approve request
-    const handleApprove = async () => {
-      // Validate that an engineer is selected
-      if (!selectedEngineer) {
-        alert('Please select an engineer.');
-        return;
-      }
+  // Handle approve request
+  const handleApprove = async () => {
+    // Validate that an engineer is selected
+    if (!selectedEngineer) {
+      alert('Please select an engineer.');
+      return;
+    }
 
-      setSubmitting(true);
-      try {
-        // Send status update to backend
-        await updateRequestStatus(id, {
-          status: 'Approved',
-          engineerId: parseInt(selectedEngineer)
-        });
-        alert(`Request ${request.request_number} approved!`);
-        navigate('/care-center'); // Redirect to dashboard
-      } catch (err) {
-        alert(err.message || 'Failed to approve request');
-      } finally {
-        setSubmitting(false);
-      }
-    };
-
+    setSubmitting(true);
+    try {
+      // Send status update to backend
+      await updateRequestStatus(id, {
+        status: 'Approved',
+        engineerId: parseInt(selectedEngineer)
+      });
+      alert(`Request ${request.request_number} approved!`);
+      navigate('/care-center'); // Redirect to dashboard
+    } catch (err) {
+      alert(err.message || 'Failed to approve request');
+    } finally {
+      setSubmitting(false);
+    }
+  };
 
   // Handle reject request
   const handleReject = async () => {
@@ -174,7 +173,6 @@ function ReviewRequest() {
         <div className="review-grid">
 
           {/* LEFT COLUMN - Request Information */}
-
           <div className="review-main">
             {/* Patient Information */}
             <div className="info-card">
@@ -200,124 +198,159 @@ function ReviewRequest() {
             </div>
           </div>
 
-
           {/* RIGHT COLUMN - Actions */}
-
           <div className="review-sidebar">
-              {/*Device Search Section*/}
-            <div className="action-card">
-              <h3>Select Device</h3>
-              <p className="search-hint">Search the AccessGUDID database to identify an appropriate device.</p>
-    
-              {/* Search Bar */}
-              <div className="search-bar">
-                <input
-                  type="text"
-                  placeholder="Search for a device..."
-                  value={searchTerm}
-                  onChange={(e) => setSearchTerm(e.target.value)}
-                  onKeyPress={(e) => e.key === 'Enter' && handleSearch()}
-                />
-                <button onClick={handleSearch} disabled={isSearching}>
-                  {isSearching ? 'Searching...' : 'Search'}
-                </button>
-              </div>
 
-              {/* Loading State */}
-              {isSearching && (
-                <div className="search-status loading">Searching for devices...</div>
-              )}
+            {/* DEVICE SEARCH - Show if status is Submitted, Under Review, or Approved */}
+            {(request.status === 'Submitted' ||
+              request.status === 'Under Review' ||
+              request.status === 'Approved') && (
+              <div className="action-card">
+                <h3>Select Device</h3>
+                <p className="search-hint">Search the AccessGUDID database to identify an appropriate device.</p>
 
-              {/* Error State */}
-              {searchError && !isSearching && (
-                <div className="search-status error">{searchError}</div>
-              )}
-
-              {/* Empty State */}
-              {!isSearching && !searchError && searchTerm && searchResults.length === 0 && (
-                <div className="search-status empty">No devices found. Try a different search term.</div>
-              )}
-
-              {/* Results List */}
-              {!isSearching && searchResults.length > 0 && (
-                <div className="search-results">
-                  <p className="results-count">{searchResults.length} devices found</p>
-                  {searchResults.map((device) => (
-                    <div
-                      key={device.deviceId}
-                      className={`device-result ${selectedDevice?.deviceId === device.deviceId ? 'selected' : ''}`}
-                      onClick={() => handleSelectDevice(device)}
-                    >
-                      <div className="device-header">
-                        <span className="device-name">{device.brandName || 'Unknown Device'}</span>
-                        <span className="device-company">{device.companyName || ''}</span>
-                      </div>
-                      <div className="device-details">
-                        {device.gmdnTerms?.gmdn?.map(g => (
-                          <span key={g.gmdnCode} className="device-gmdn">{g.gmdnPTName}</span>
-                       ))}
-                      </div>
-                      <div className="device-meta">
-                        <span>ID: {device.deviceId}</span>
-                        <span>Model: {device.versionModelNumber || 'N/A'}</span>
-                      </div>
-                      {selectedDevice?.deviceId === device.deviceId && (
-                        <span className="selected-badge">✓ Selected</span>
-                      )}
-                    </div>
-                  ))}
-                </div>
-              )}
-
-              {/* Selected Device Info */}
-              {selectedDevice && (
-                <div className="selected-device-info">
-                  <span><strong>Selected:</strong> {selectedDevice.brandName}</span>
-                  <button className="btn-clear-selection" onClick={() => setSelectedDevice(null)}>
-                    Clear
+                {/* Search Bar */}
+                <div className="search-bar">
+                  <input
+                    type="text"
+                    placeholder="Search for a device..."
+                    value={searchTerm}
+                    onChange={(e) => setSearchTerm(e.target.value)}
+                    onKeyPress={(e) => e.key === 'Enter' && handleSearch()}
+                  />
+                  <button onClick={handleSearch} disabled={isSearching}>
+                    {isSearching ? 'Searching...' : 'Search'}
                   </button>
                 </div>
-              )}
-            </div>
-            <div className="action-card">
-              <h3>Assign Engineer</h3>
-              {/* Dropdown to select engineer */}
-              <select
-                className="engineer-select"
-                value={selectedEngineer}
-                onChange={(e) => setSelectedEngineer(e.target.value)}
-              >
-                <option value="">Select engineer...</option>
-                {engineers.map(e => (
-                  <option key={e.id} value={e.id}>
-                    {e.name} - {e.specialization}
-                  </option>
-                ))}
-              </select>
 
-              {/* Action Buttons */}
-              <div className="action-buttons">
-                <button 
-                  className="btn-approve"
-                  onClick={handleApprove}
-                  disabled={submitting || !selectedEngineer}
-                >
-                  {submitting ? 'Processing...' : 'Approve Request'}
-                </button>
-                <button 
-                  className="btn-reject"
-                  onClick={handleReject}
-                  disabled={submitting}
-                >
-                  {submitting ? 'Processing...' : 'Reject Request'}
-                </button>
+                {/* Loading State */}
+                {isSearching && (
+                  <div className="search-status loading">Searching for devices...</div>
+                )}
+
+                {/* Error State */}
+                {searchError && !isSearching && (
+                  <div className="search-status error">{searchError}</div>
+                )}
+
+                {/* Empty State */}
+                {!isSearching && !searchError && searchTerm && searchResults.length === 0 && (
+                  <div className="search-status empty">No devices found. Try a different search term.</div>
+                )}
+
+                {/* Results List */}
+                {!isSearching && searchResults.length > 0 && (
+                  <div className="search-results">
+                    <p className="results-count">{searchResults.length} devices found</p>
+                    {searchResults.map((device) => (
+                      <div
+                        key={device.deviceId}
+                        className={`device-result ${selectedDevice?.deviceId === device.deviceId ? 'selected' : ''}`}
+                        onClick={() => handleSelectDevice(device)}
+                      >
+                        <div className="device-header">
+                          <span className="device-name">{device.brandName || 'Unknown Device'}</span>
+                          <span className="device-company">{device.companyName || ''}</span>
+                        </div>
+                        <div className="device-details">
+                          {device.gmdnTerms?.gmdn?.map(g => (
+                            <span key={g.gmdnCode} className="device-gmdn">{g.gmdnPTName}</span>
+                          ))}
+                        </div>
+                        <div className="device-meta">
+                          <span>ID: {device.deviceId}</span>
+                          <span>Model: {device.versionModelNumber || 'N/A'}</span>
+                        </div>
+                        {selectedDevice?.deviceId === device.deviceId && (
+                          <span className="selected-badge">✓ Selected</span>
+                        )}
+                      </div>
+                    ))}
+                  </div>
+                )}
+
+                {/* Selected Device Info */}
+                {selectedDevice && (
+                  <div className="selected-device-info">
+                    <span><strong>Selected:</strong> {selectedDevice.brandName}</span>
+                    <button className="btn-clear-selection" onClick={() => setSelectedDevice(null)}>
+                      Clear
+                    </button>
+                  </div>
+                )}
               </div>
-              
-              {/* Warning if no engineer selected */}
-              {!selectedEngineer && (
-                <p className="warning-text">Please select an engineer before approving.</p>
-              )}
-            </div>
+            )}
+
+            {/* ASSIGN ENGINEER + APPROVE/REJECT - Only show if status is Submitted or Under Review */}
+            {(request.status === 'Submitted' || request.status === 'Under Review') && (
+              <div className="action-card">
+                <h3>Assign Engineer</h3>
+                <select
+                  className="engineer-select"
+                  value={selectedEngineer}
+                  onChange={(e) => setSelectedEngineer(e.target.value)}
+                >
+                  <option value="">Select engineer...</option>
+                  {engineers.map(e => (
+                    <option key={e.id} value={e.id}>
+                      {e.name} - {e.specialization}
+                    </option>
+                  ))}
+                </select>
+
+                <div className="action-buttons">
+                  <button
+                    className="btn-approve"
+                    onClick={handleApprove}
+                    disabled={submitting || !selectedEngineer}
+                  >
+                    {submitting ? 'Processing...' : 'Approve Request'}
+                  </button>
+                  <button
+                    className="btn-reject"
+                    onClick={handleReject}
+                    disabled={submitting}
+                  >
+                    {submitting ? 'Processing...' : 'Reject Request'}
+                  </button>
+                </div>
+
+                {!selectedEngineer && (
+                  <p className="warning-text">Please select an engineer before approving.</p>
+                )}
+              </div>
+            )}
+
+            {/* STATUS INFO CARD - Show after approval */}
+            {request.status === 'Approved' && (
+              <div className="action-card status-info approved">
+                <h3>✓ Request Approved</h3>
+                <p>This request has been approved and assigned to an engineer.</p>
+                <p className="status-hint">Waiting for patient to submit measurements.</p>
+              </div>
+            )}
+
+            {request.status === 'In Progress' && (
+              <div className="action-card status-info in-progress">
+                <h3>⚙ In Progress</h3>
+                <p>Engineer is currently working on this device.</p>
+              </div>
+            )}
+
+            {request.status === 'Delivered' && (
+              <div className="action-card status-info delivered">
+                <h3>✓ Delivered</h3>
+                <p>This device has been delivered to the patient.</p>
+              </div>
+            )}
+
+            {request.status === 'Rejected' && (
+              <div className="action-card status-info rejected">
+                <h3>✕ Rejected</h3>
+                <p>This request was rejected.</p>
+              </div>
+            )}
+
           </div>
         </div>
       </div>
