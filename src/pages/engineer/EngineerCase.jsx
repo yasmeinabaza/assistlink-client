@@ -119,9 +119,9 @@ function EngineerCase() {
         </div>
 
         <div className="case-grid">
-          {/* ============================================ */}
+
           {/* LEFT COLUMN - Case Information */}
-          {/* ============================================ */}
+
           <div className="case-main">
             {/* Production Status Steps */}
             <div className="info-card">
@@ -171,9 +171,9 @@ function EngineerCase() {
             </div>
           </div>
 
-          {/* ============================================ */}
+
           {/* RIGHT COLUMN - Actions */}
-          {/* ============================================ */}
+
           <div className="case-sidebar">
             <div className="action-card">
               <h3>Update Status</h3>

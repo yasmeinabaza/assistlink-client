@@ -18,7 +18,8 @@ function CareCenterDashboard() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
-  // Get user from localStorage (like course demo)
+
+  // Get user from localStorage
   useEffect(() => {
     const savedUser = localStorage.getItem('user');
     if (savedUser) {
@@ -106,9 +107,9 @@ function CareCenterDashboard() {
       onTabChange={handleTabChange}
     >
       <div className="care-center-dashboard">
-        {/* ============================================ */}
+        
         {/* DASHBOARD VIEW - Overview of the care center */}
-        {/* ============================================ */}
+        
         {activeTab === 'dashboard' && (
           <div className="cc-dashboard-view">
             <div className="cc-header">
@@ -174,9 +175,9 @@ function CareCenterDashboard() {
           </div>
         )}
 
-        {/* ============================================ */}
+       
         {/* REQUESTS VIEW - Table of all requests */}
-        {/* ============================================ */}
+       
         {activeTab === 'requests' && (
           <div className="cc-tab-view">
             <div className="cc-tab-header">
@@ -225,9 +226,9 @@ function CareCenterDashboard() {
           </div>
         )}
 
-        {/* ============================================ */}
+       
         {/* PATIENTS VIEW - List of all patients */}
-        {/* ============================================ */}
+       
         {activeTab === 'patients' && (
           <div className="cc-tab-view">
             <div className="cc-tab-header">

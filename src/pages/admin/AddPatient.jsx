@@ -7,7 +7,7 @@ import { signup, getCareCenters } from '../../services/api';
 import './AddPatient.css';
 
 function AddPatient() {
-  // useNavigate for programmatic navigation after form submit
+  // useNavigate for navigation after form submit
   const navigate = useNavigate();
   
   // State variables
@@ -87,7 +87,7 @@ function AddPatient() {
 
     setLoading(true);
     try {
-      // Prepare data for API call - use signup endpoint with role 'patient'
+      // Prepare data for API call, use signup endpoint with role 'patient'
       const patientData = {
         name: formData.name,
         email: formData.email,

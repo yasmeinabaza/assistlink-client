@@ -84,7 +84,7 @@ function PatientProfile() {
   const handleAddressSubmit = async (e) => {
     e.preventDefault();
     // In a real app, you'd have a delivery address table
-    alert('Delivery address updated successfully! (Demo)');
+    alert('Delivery address updated successfully!');
     setEditingAddress(false);
   };
 

@@ -1,8 +1,9 @@
-import { Link, useLocation } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';  // ← Add useNavigate
 import './SideNav.css';
 
 function SideNav({ userRole, userName, userEmail, onNavigate, onTabChange }) {
   const location = useLocation();
+  const navigate = useNavigate();  // ← Add this
 
   const getNavItems = () => {
     const role = userRole?.toLowerCase() || '';
@@ -44,6 +45,14 @@ function SideNav({ userRole, userName, userEmail, onNavigate, onTabChange }) {
   };
 
   const navItems = getNavItems();
+
+  // Handle logout
+  const handleLogout = () => {
+    // Remove user from localStorage
+    localStorage.removeItem('user');
+    // Navigate to login
+    navigate('/login');
+  };
 
   const handleClick = (item, e) => {
     if (onNavigate) onNavigate();
@@ -101,6 +110,12 @@ function SideNav({ userRole, userName, userEmail, onNavigate, onTabChange }) {
           {userEmail && <span className="side-nav-user-email">{userEmail}</span>}
         </div>
       </div>
+
+      {/* Logout Button */}
+      <button className="side-nav-logout" onClick={handleLogout}>
+        <span className="nav-icon">⎋</span>
+        <span>Logout</span>
+      </button>
     </div>
   );
 }

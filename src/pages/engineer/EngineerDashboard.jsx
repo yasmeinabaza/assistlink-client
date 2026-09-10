@@ -14,7 +14,7 @@ function EngineerDashboard() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
-  // Get user from localStorage (like course demo)
+  // Get user from localStorage
   useEffect(() => {
     const savedUser = localStorage.getItem('user');
     if (savedUser) {
@@ -35,7 +35,6 @@ function EngineerDashboard() {
     try {
       setLoading(true);
       // Get requests assigned to this engineer
-      // You'll need to add this function to api.js
       const data = await getRequestsByEngineer(user.id);
       setCases(data);
       setError(null);

@@ -49,11 +49,10 @@ function PatientDetail() {
           name: requestsData[0].patient_name,
           email: requestsData[0].patient_email,
           phone: requestsData[0].patient_phone,
-          // You might need to fetch more patient details from a separate endpoint
+         
         });
       } else {
-        // If no requests, we need to get patient info from users endpoint
-        // For now, set basic info
+        // If no requests, set basic info
         setPatient({
           id: patientId,
           name: 'Patient',
@@ -123,9 +122,9 @@ function PatientDetail() {
         </div>
 
         <div className="patient-detail-grid">
-          {/* ============================================ */}
+    
           {/* LEFT COLUMN - Patient Info & Requests */}
-          {/* ============================================ */}
+
           <div className="patient-detail-left">
             {/* Personal Information */}
             <div className="info-card">
@@ -172,9 +171,8 @@ function PatientDetail() {
             </div>
           </div>
 
-          {/* ============================================ */}
           {/* RIGHT COLUMN - Measurements */}
-          {/* ============================================ */}
+
           <div className="patient-detail-right">
             <div className="info-card">
               <h3>Patient Measurements</h3>

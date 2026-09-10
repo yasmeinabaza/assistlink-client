@@ -172,9 +172,9 @@ function ReviewRequest() {
         <p className="review-submitted">Submitted {request.submitted_date}</p>
 
         <div className="review-grid">
-          {/* ============================================ */}
+
           {/* LEFT COLUMN - Request Information */}
-          {/* ============================================ */}
+
           <div className="review-main">
             {/* Patient Information */}
             <div className="info-card">
@@ -200,9 +200,9 @@ function ReviewRequest() {
             </div>
           </div>
 
-          {/* ============================================ */}
+
           {/* RIGHT COLUMN - Actions */}
-          {/* ============================================ */}
+
           <div className="review-sidebar">
               {/*Device Search Section*/}
             <div className="action-card">

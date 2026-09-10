@@ -26,7 +26,7 @@ function RequestDetails() {
   });
   const [submitLoading, setSubmitLoading] = useState(false);
 
-  // Get user from localStorage (like course demo)
+  // Get user from localStorage
   useEffect(() => {
     const savedUser = localStorage.getItem('user');
     if (savedUser) {

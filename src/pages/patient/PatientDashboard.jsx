@@ -14,7 +14,7 @@ function PatientDashboard() {
   const [user, setUser] = useState(null);            // Store logged-in user data
 
   // useEffect runs when component mounts
-  // Get user from localStorage (saved after login - like course demo)
+  // Get user from localStorage
   useEffect(() => {
     const savedUser = localStorage.getItem('user');
     if (savedUser) {

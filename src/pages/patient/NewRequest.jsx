@@ -27,7 +27,7 @@ function NewRequest() {
   const deviceOptions = ['Prosthetic Limb', 'Orthotic Device', 'Wheelchair', 'Hearing Aid', 'Vision Aid', 'Other'];
   const reasonOptions = ['New Device', 'Replacement', 'Adjustment', 'Repair', 'Upgrade'];
 
-  // Get user from localStorage (like course demo)
+  // Get user from localStorage
   useEffect(() => {
     const savedUser = localStorage.getItem('user');
     if (savedUser) {
