@@ -22,6 +22,7 @@ The web app is designed for four types of users:
 - View request status and progress
 - Add measurements after approval
 - Update profile and delivery address
+- Logout
 
 ### Care Center Staff
 - View requests from patients
@@ -29,24 +30,28 @@ The web app is designed for four types of users:
 - Assign engineers to approved requests
 - Search AccessGUDID to select a device reference
 - View patient details and measurements
+- Logout
 
 ### Engineer
 - View assigned cases
-- Update case status (In Progress → Ready for Delivery)
+- Update case status (Approved → In Progress → Delivered)
+- Logout
 
 ### Admin
 - Manage all users (patients, care centers, engineers)
-- Add, edit, and delete users
-- Add and manage care centers
-- Add and manage engineers
+- Add and delete users
+- Toggle user status (active/inactive)
+- Add and delete care centers
+- Add and delete engineers
 - View all requests in the system
+- Logout
 
 ## Technologies
 
 - **React** — UI library
 - **Vite** — build tool and dev server
 - **React Router DOM** — client-side routing
-- **Axios** — HTTP client for API requests (via fetch / axios)
+- **Axios** — HTTP client for API requests
 - **Bootstrap** — used only for the side navigation
 - **Custom CSS** — for the rest of the UI design
 - **localStorage** — to persist the logged-in user
@@ -64,9 +69,14 @@ The web app is designed for four types of users:
    npm install
    ```
 
-3. Make sure the backend server is running on `http://localhost:5000`
+3. Copy `.env.sample` to `.env` and adjust if needed:
+   ```
+   VITE_SERVER_URL=http://localhost:5000
+   ```
 
-4. Start the dev server:
+4. Make sure the backend server is running on `http://localhost:5000`
+
+5. Start the dev server:
    ```bash
    npm run dev
    ```
