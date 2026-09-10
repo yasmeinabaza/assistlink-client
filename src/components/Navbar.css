@@ -1,0 +1,105 @@
+/* ============================================
+   HOME PAGE NAVBAR
+   ============================================ */
+
+.home-navbar {
+    background: #ffffff;
+    border-bottom: 1px solid #e5e7eb;
+    padding: 12px 0;
+}
+
+.navbar-container {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 0 24px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.navbar-brand {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 20px;
+    font-weight: 700;
+    color: #1a2a4a;
+    text-decoration: none;
+}
+
+.brand-mark {
+    width: 32px;
+    height: 32px;
+    background: #245f92;
+    color: #ffffff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 4px;
+    font-size: 16px;
+    font-weight: 700;
+}
+
+.navbar-actions {
+    display: flex;
+    gap: 16px;
+    align-items: center;
+}
+
+.nav-link-login {
+    color: #6b7280;
+    text-decoration: none;
+    font-size: 14px;
+    font-weight: 500;
+    transition: color 0.2s;
+}
+
+.nav-link-login:hover {
+    color: #1a2a4a;
+}
+
+.nav-link-register {
+    background: #245f92;
+    color: #ffffff;
+    padding: 8px 22px;
+    border-radius: 6px;
+    text-decoration: none;
+    font-size: 14px;
+    font-weight: 500;
+    transition: background 0.2s;
+}
+
+.nav-link-register:hover {
+    background: #1a4a73;
+    color: #ffffff;
+}
+
+/* Mobile responsive */
+@media (max-width: 480px) {
+    .navbar-container {
+        padding: 0 16px;
+    }
+
+    .navbar-brand {
+        font-size: 17px;
+    }
+
+    .brand-mark {
+        width: 28px;
+        height: 28px;
+        font-size: 14px;
+    }
+
+    .nav-link-login {
+        font-size: 13px;
+    }
+
+    .nav-link-register {
+        padding: 6px 16px;
+        font-size: 13px;
+    }
+
+    .navbar-actions {
+        gap: 10px;
+    }
+}

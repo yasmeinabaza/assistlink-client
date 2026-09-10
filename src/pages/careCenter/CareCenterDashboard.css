@@ -1,0 +1,421 @@
+.care-center-dashboard {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+/* ===== DASHBOARD VIEW ===== */
+.cc-dashboard-view {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+}
+
+.cc-header h1 {
+    font-size: 24px;
+    font-weight: 700;
+    color: #1f2937;
+    margin-bottom: 2px;
+}
+
+.cc-stats {
+    color: #6b7280;
+    font-size: 14px;
+}
+
+/* Stats Grid */
+.cc-stats-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 16px;
+}
+
+.cc-stat-card {
+    background: white;
+    border-radius: 10px;
+    padding: 20px;
+    text-align: center;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.06);
+}
+
+.stat-number {
+    font-size: 28px;
+    font-weight: 700;
+    color: #1f2937;
+}
+
+.stat-label {
+    font-size: 13px;
+    color: #6b7280;
+    margin-top: 4px;
+}
+
+/* Info Card */
+.cc-info-card {
+    background: white;
+    border-radius: 10px;
+    padding: 24px 28px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.06);
+}
+
+.cc-info-card h2 {
+    font-size: 18px;
+    font-weight: 600;
+    color: #1f2937;
+    margin-bottom: 8px;
+}
+
+.cc-info-card p {
+    color: #6b7280;
+    font-size: 14px;
+    line-height: 1.6;
+    margin-bottom: 16px;
+}
+
+.cc-info-actions {
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+}
+
+.cc-info-btn {
+    padding: 8px 24px;
+    background: #245f92;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    font-size: 14px;
+    font-weight: 500;
+    text-decoration: none;
+    transition: background 0.2s;
+}
+
+.cc-info-btn:hover {
+    background: #1a4a73;
+    color: white;
+    text-decoration: none;
+}
+
+.cc-info-btn.secondary {
+    background: transparent;
+    color: #245f92;
+    border: 1px solid #245f92;
+}
+
+.cc-info-btn.secondary:hover {
+    background: #eaf2f8;
+}
+
+/* Recent Activity */
+.cc-recent h3 {
+    font-size: 16px;
+    font-weight: 600;
+    color: #1f2937;
+    margin-bottom: 12px;
+}
+
+.cc-activity-list {
+    background: white;
+    border-radius: 10px;
+    padding: 4px 20px 4px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.06);
+}
+
+.cc-activity-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px 0;
+    border-bottom: 1px solid #f3f4f6;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+.cc-activity-item:last-child {
+    border-bottom: none;
+}
+
+.activity-request {
+    font-weight: 500;
+    color: #1f2937;
+}
+
+.activity-patient {
+    color: #6b7280;
+    font-size: 14px;
+}
+
+.activity-status {
+    padding: 2px 12px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 500;
+}
+
+.activity-status.submitted {
+    background: #4facfe;
+    color: white;
+}
+
+.activity-status.under-review {
+    background: #f39c12;
+    color: white;
+}
+
+.activity-status.approved {
+    background: #00b894;
+    color: white;
+}
+
+.activity-status.in-progress {
+    background: #6c5ce7;
+    color: white;
+}
+
+.activity-status.delivered {
+    background: #2ecc71;
+    color: white;
+}
+
+.activity-date {
+    color: #9ca3af;
+    font-size: 13px;
+}
+
+/* ===== TAB VIEWS ===== */
+.cc-tab-view {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.cc-tab-header h2 {
+    font-size: 22px;
+    font-weight: 700;
+    color: #1f2937;
+    margin-bottom: 2px;
+}
+
+.cc-tab-stats {
+    color: #6b7280;
+    font-size: 14px;
+}
+
+/* ===== TABLE ===== */
+.cc-table-wrapper {
+    background: white;
+    border-radius: 10px;
+    padding: 0 20px 4px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.06);
+    overflow-x: auto;
+}
+
+.cc-table {
+    width: 100%;
+    border-collapse: collapse;
+    min-width: 650px;
+}
+
+.cc-table th {
+    text-align: left;
+    padding: 14px 12px 10px;
+    font-size: 12px;
+    font-weight: 600;
+    color: #6b7280;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    border-bottom: 1px solid #e5e7eb;
+}
+
+.cc-table td {
+    padding: 12px;
+    border-bottom: 1px solid #f3f4f6;
+    font-size: 14px;
+    vertical-align: middle;
+}
+
+.cc-table tr:last-child td {
+    border-bottom: none;
+}
+
+.cc-req-id {
+    font-weight: 500;
+    color: #1f2937;
+}
+
+.cc-patient-link {
+    color: #245f92;
+    text-decoration: none;
+}
+
+.cc-patient-link:hover {
+    text-decoration: underline;
+}
+
+.cc-btn-view {
+    padding: 4px 14px;
+    background: #245f92;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    font-size: 12px;
+    font-weight: 500;
+    text-decoration: none;
+    display: inline-block;
+    transition: background 0.2s;
+    cursor: pointer;
+}
+
+.cc-btn-view:hover {
+    background: #1a4a73;
+    color: white;
+    text-decoration: none;
+}
+
+/* ===== PATIENTS LIST ===== */
+.cc-patients-list {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.cc-patient-card {
+    background: white;
+    border-radius: 10px;
+    padding: 16px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.06);
+    flex-wrap: wrap;
+    gap: 12px;
+}
+
+.cc-patient-info {
+    flex: 1;
+    min-width: 200px;
+}
+
+.cc-patient-name {
+    text-decoration: none;
+    color: #1f2937;
+}
+
+.cc-patient-name:hover {
+    color: #245f92;
+    text-decoration: underline;
+}
+
+.cc-patient-name h4 {
+    font-size: 15px;
+    font-weight: 600;
+    margin: 0;
+}
+
+.cc-patient-detail {
+    font-size: 13px;
+    color: #6b7280;
+    margin: 2px 0;
+}
+
+.cc-patient-stats {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex-wrap: wrap;
+}
+
+.cc-stat-badge {
+    font-size: 12px;
+    padding: 4px 12px;
+    border-radius: 20px;
+    background: #f3f4f6;
+    color: #6b7280;
+}
+
+.cc-stat-badge.active {
+    background: #fef3c7;
+    color: #92400e;
+}
+
+/* Status Badges */
+.status-badge {
+    padding: 4px 14px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 500;
+    display: inline-block;
+}
+
+.status-badge.submitted {
+    background: #4facfe;
+    color: white;
+}
+
+.status-badge.under-review {
+    background: #f39c12;
+    color: white;
+}
+
+.status-badge.approved {
+    background: #00b894;
+    color: white;
+}
+
+.status-badge.in-progress {
+    background: #6c5ce7;
+    color: white;
+}
+
+.status-badge.delivered {
+    background: #2ecc71;
+    color: white;
+}
+
+.status-badge.rejected {
+    background: #ef4444;
+    color: white;
+}
+
+/* ===== MOBILE ===== */
+@media (max-width: 768px) {
+    .cc-stats-grid {
+        grid-template-columns: 1fr 1fr;
+    }
+
+    .cc-stat-number {
+        font-size: 22px;
+    }
+
+    .cc-activity-item {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .cc-patient-card {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .cc-patient-stats {
+        justify-content: flex-start;
+    }
+
+    .cc-info-actions {
+        flex-direction: column;
+    }
+
+    .cc-info-btn {
+        text-align: center;
+    }
+
+    .cc-table-wrapper {
+        padding: 0 10px 4px;
+    }
+
+    .cc-table th,
+    .cc-table td {
+        padding: 8px 6px;
+        font-size: 13px;
+    }
+}

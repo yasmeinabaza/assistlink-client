@@ -1,0 +1,269 @@
+.request-details-page {
+    max-width: 1100px;
+    margin: 0 auto;
+}
+
+.details-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 8px;
+}
+
+.details-header h1 {
+    font-size: 22px;
+    font-weight: 700;
+    color: #1f2937;
+}
+
+.details-submitted {
+    color: #6b7280;
+    font-size: 14px;
+    margin-bottom: 24px;
+}
+
+.details-grid {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    gap: 30px;
+}
+
+.details-main {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+/* Progress Card */
+.progress-card {
+    background: white;
+    border-radius: 10px;
+    padding: 20px 24px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.06);
+}
+
+.progress-card h3 {
+    font-size: 15px;
+    font-weight: 600;
+    color: #1f2937;
+    margin-bottom: 12px;
+}
+
+.progress-bar-track {
+    width: 100%;
+    height: 6px;
+    background: #e5e7eb;
+    border-radius: 3px;
+    overflow: hidden;
+}
+
+.progress-bar-fill {
+    height: 100%;
+    background: #2ecc71;
+    border-radius: 3px;
+    transition: width 0.3s;
+}
+
+.progress-labels {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 6px;
+    font-size: 10px;
+    color: #9ca3af;
+}
+
+.progress-labels .done {
+    color: #1f2937;
+    font-weight: 500;
+}
+
+.status-message {
+    background: #f0f9ff;
+    padding: 10px 14px;
+    border-radius: 6px;
+    font-size: 13px;
+    color: #4b5563;
+    margin-top: 12px;
+}
+
+/* Measurements */
+.measurements-card {
+    background: white;
+    border-radius: 10px;
+    padding: 20px 24px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.06);
+}
+
+.measurements-prompt {
+    text-align: center;
+    padding: 10px 0;
+}
+
+.measurements-prompt h3 {
+    font-size: 16px;
+    font-weight: 600;
+    color: #1f2937;
+    margin-bottom: 4px;
+}
+
+.measurements-prompt p {
+    color: #6b7280;
+    font-size: 14px;
+}
+
+.btn-primary {
+    background: #245f92;
+    color: white;
+    padding: 10px 24px;
+    border: none;
+    border-radius: 6px;
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background 0.2s;
+    margin-top: 8px;
+}
+
+.btn-primary:hover {
+    background: #1a4a73;
+}
+
+.measurements-form h3 {
+    font-size: 16px;
+    font-weight: 600;
+    color: #1f2937;
+    margin-bottom: 2px;
+}
+
+.form-hint {
+    color: #6b7280;
+    font-size: 13px;
+    margin-bottom: 16px;
+}
+
+.form-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+}
+
+.measurements-form .form-group {
+    margin-bottom: 14px;
+}
+
+.measurements-form .form-group label {
+    font-size: 13px;
+    font-weight: 500;
+    color: #1f2937;
+}
+
+.measurements-form .form-group input,
+.measurements-form .form-group textarea {
+    width: 100%;
+    padding: 8px 12px;
+    border: 1px solid #d1d5db;
+    border-radius: 6px;
+    font-size: 14px;
+}
+
+.measurements-form .form-group input:focus,
+.measurements-form .form-group textarea:focus {
+    outline: none;
+    border-color: #245f92;
+}
+
+.measurements-submitted {
+    background: #ecfdf5;
+    border: 1px solid #a7f3d0;
+    border-radius: 10px;
+    padding: 18px 24px;
+}
+
+.measurements-submitted h3 {
+    color: #065f46;
+    font-size: 16px;
+    font-weight: 600;
+    margin-bottom: 8px;
+}
+
+.measurements-display {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 16px;
+}
+
+.measurements-display span {
+    font-size: 14px;
+    color: #1f2937;
+    background: white;
+    padding: 4px 14px;
+    border-radius: 4px;
+}
+
+.measurements-display .note-text {
+    width: 100%;
+    background: transparent;
+    padding: 0;
+    color: #6b7280;
+}
+
+/* Info Cards */
+.info-card {
+    background: white;
+    border-radius: 10px;
+    padding: 18px 20px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.06);
+}
+
+.info-card h3 {
+    font-size: 13px;
+    font-weight: 600;
+    color: #6b7280;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-bottom: 10px;
+}
+
+.info-row {
+    font-size: 14px;
+    color: #4b5563;
+    padding: 4px 0;
+}
+
+.info-row strong {
+    color: #1f2937;
+    font-weight: 500;
+}
+
+.address-text {
+    color: #4b5563;
+    font-size: 14px;
+}
+
+.details-sidebar {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.not-found {
+    text-align: center;
+    padding: 60px 0;
+    font-size: 18px;
+    color: #6b7280;
+}
+
+@media (max-width: 768px) {
+    .details-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .form-row {
+        grid-template-columns: 1fr;
+    }
+
+    .progress-labels {
+        flex-wrap: wrap;
+        gap: 4px;
+    }
+}

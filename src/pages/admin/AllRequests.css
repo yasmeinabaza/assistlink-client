@@ -1,0 +1,231 @@
+.all-requests {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 24px;
+}
+
+.ar-header h1 {
+    font-size: 24px;
+    font-weight: 700;
+    color: #1f2937;
+    margin-bottom: 2px;
+}
+
+.ar-stats {
+    color: #6b7280;
+    font-size: 14px;
+    margin-bottom: 24px;
+}
+
+.ar-controls {
+    margin-bottom: 20px;
+}
+
+.ar-search {
+    width: 100%;
+    max-width: 360px;
+    padding: 8px 16px;
+    border: 1px solid #d1d5db;
+    border-radius: 6px;
+    font-size: 14px;
+}
+
+.ar-search:focus {
+    outline: none;
+    border-color: #245f92;
+}
+
+.ar-table-wrapper {
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.06);
+    overflow: hidden;
+}
+
+.ar-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.ar-table th {
+    text-align: left;
+    padding: 14px 20px;
+    font-size: 12px;
+    font-weight: 600;
+    color: #6b7280;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    background: #f9fafb;
+    border-bottom: 1px solid #e5e7eb;
+}
+
+.ar-table td {
+    padding: 14px 20px;
+    border-bottom: 1px solid #f3f4f6;
+    font-size: 14px;
+    vertical-align: middle;
+}
+
+.ar-table tr:last-child td {
+    border-bottom: none;
+}
+
+.ar-table tr:hover td {
+    background: #f9fafb;
+}
+
+.ar-req-id {
+    font-weight: 500;
+    color: #1f2937;
+}
+
+.ar-patient-link {
+    color: #245f92;
+    text-decoration: none;
+}
+
+.ar-patient-link:hover {
+    text-decoration: underline;
+}
+
+.ar-btn-view {
+    padding: 4px 14px;
+    background: #245f92;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    font-size: 12px;
+    font-weight: 500;
+    text-decoration: none;
+    display: inline-block;
+    transition: background 0.2s;
+    cursor: pointer;
+}
+
+.ar-btn-view:hover {
+    background: #1a4a73;
+    color: white;
+    text-decoration: none;
+}
+
+.status-badge {
+    padding: 4px 14px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 500;
+    display: inline-block;
+}
+
+.status-badge.submitted {
+    background: #4facfe;
+    color: white;
+}
+
+.status-badge.under-review {
+    background: #f39c12;
+    color: white;
+}
+
+.status-badge.approved {
+    background: #00b894;
+    color: white;
+}
+
+.status-badge.in-progress {
+    background: #6c5ce7;
+    color: white;
+}
+
+.status-badge.delivered {
+    background: #2ecc71;
+    color: white;
+}
+
+.status-badge.rejected {
+    background: #ef4444;
+    color: white;
+}
+
+@media (max-width: 1024px) {
+    .all-requests {
+        padding: 0 16px;
+    }
+
+    .ar-table th,
+    .ar-table td {
+        padding: 12px 14px;
+        font-size: 13px;
+    }
+}
+
+@media (max-width: 768px) {
+    .all-requests {
+        padding: 0 12px;
+    }
+
+    .ar-search {
+        max-width: 100%;
+        box-sizing: border-box;
+    }
+
+    .ar-table-wrapper {
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+        border-radius: 10px;
+    }
+
+    .ar-table {
+        min-width: 600px;
+    }
+
+    .ar-table th,
+    .ar-table td {
+        padding: 10px 12px;
+        font-size: 12px;
+        white-space: nowrap;
+    }
+
+    .ar-btn-view {
+        font-size: 11px;
+        padding: 3px 10px;
+    }
+
+    .status-badge {
+        font-size: 11px;
+        padding: 2px 10px;
+    }
+}
+
+@media (max-width: 480px) {
+    .all-requests {
+        padding: 0 8px;
+    }
+
+    .ar-header h1 {
+        font-size: 20px;
+    }
+
+    .ar-stats {
+        font-size: 13px;
+    }
+
+    .ar-table {
+        min-width: 500px;
+    }
+
+    .ar-table th,
+    .ar-table td {
+        padding: 8px 8px;
+        font-size: 11px;
+    }
+
+    .ar-btn-view {
+        font-size: 10px;
+        padding: 2px 8px;
+    }
+
+    .status-badge {
+        font-size: 10px;
+        padding: 2px 8px;
+    }
+}

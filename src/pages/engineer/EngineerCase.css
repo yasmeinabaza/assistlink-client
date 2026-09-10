@@ -1,0 +1,220 @@
+.engineer-case-page {
+    max-width: 1100px;
+    margin: 0 auto;
+}
+
+.case-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-top: 8px;
+}
+
+.case-header h1 {
+    font-size: 22px;
+    font-weight: 700;
+    color: #1f2937;
+}
+
+.case-subtitle {
+    color: #6b7280;
+    font-size: 14px;
+}
+
+.case-grid {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    gap: 30px;
+    margin-top: 20px;
+}
+
+.case-main {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.info-card {
+    background: white;
+    border-radius: 10px;
+    padding: 18px 20px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.06);
+}
+
+.info-card h3 {
+    font-size: 13px;
+    font-weight: 600;
+    color: #6b7280;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-bottom: 10px;
+}
+
+.status-steps {
+    display: flex;
+    gap: 16px;
+}
+
+.status-steps .step {
+    font-size: 13px;
+    color: #9ca3af;
+    padding: 4px 12px;
+    border-radius: 20px;
+    background: #f3f4f6;
+}
+
+.status-steps .step.active {
+    color: white;
+    background: #245f92;
+}
+
+.delivery-row {
+    font-size: 14px;
+    color: #4b5563;
+    padding: 3px 0;
+}
+
+.delivery-row strong {
+    color: #1f2937;
+    font-weight: 500;
+}
+
+.measurements-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+}
+
+.measurements-grid span {
+    font-size: 14px;
+    color: #4b5563;
+}
+
+.measurement-notes {
+    font-size: 14px;
+    color: #4b5563;
+    margin-top: 8px;
+}
+
+.notes-text {
+    color: #4b5563;
+    font-size: 14px;
+    margin: 0;
+}
+
+.case-sidebar {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.action-card {
+    background: white;
+    border-radius: 10px;
+    padding: 20px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.06);
+}
+
+.action-card h3 {
+    font-size: 14px;
+    font-weight: 600;
+    color: #1f2937;
+    margin-bottom: 12px;
+}
+
+.btn-start {
+    width: 100%;
+    background: #245f92;
+    color: white;
+    padding: 10px;
+    border: none;
+    border-radius: 6px;
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+
+.btn-start:hover:not(:disabled) {
+    background: #1a4a73;
+}
+
+.btn-start:disabled {
+    background: #a7b7cb;
+    cursor: not-allowed;
+}
+
+.btn-deliver {
+    width: 100%;
+    background: #2ecc71;
+    color: white;
+    padding: 10px;
+    border: none;
+    border-radius: 6px;
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+
+.btn-deliver:hover:not(:disabled) {
+    background: #27ae60;
+}
+
+.btn-deliver:disabled {
+    background: #a7d7b5;
+    cursor: not-allowed;
+}
+
+.delivered-message {
+    color: #065f46;
+    background: #ecfdf5;
+    padding: 10px;
+    border-radius: 6px;
+    text-align: center;
+    font-size: 14px;
+}
+
+.device-info {
+    margin-top: 16px;
+    padding-top: 16px;
+    border-top: 1px solid #e5e7eb;
+}
+
+.device-info h4 {
+    font-size: 12px;
+    font-weight: 600;
+    color: #6b7280;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-bottom: 4px;
+}
+
+.device-name {
+    font-weight: 500;
+    color: #1f2937;
+    margin: 0;
+}
+
+.device-manufacturer {
+    font-size: 13px;
+    color: #6b7280;
+    margin: 0;
+}
+
+.device-id {
+    font-size: 12px;
+    color: #9ca3af;
+    margin: 0;
+}
+
+@media (max-width: 768px) {
+    .case-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .case-header {
+        flex-direction: column;
+        gap: 8px;
+    }
+}
